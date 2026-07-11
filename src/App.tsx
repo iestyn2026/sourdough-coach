@@ -3,6 +3,7 @@ import BakePlanner from './pages/BakePlanner';
 import GuidedBake from './pages/GuidedBake';
 import LoafCalculator from './pages/LoafCalculator';
 import StarterBuilder from './pages/StarterBuilder';
+import Troubleshooting from './pages/Troubleshooting';
 
 /**
  * Hand-rolled hash navigation — ~20 lines instead of a router dependency
@@ -14,6 +15,7 @@ const PAGES = [
   { hash: '#/starter', label: 'Starter', Component: StarterBuilder },
   { hash: '#/planner', label: 'Planner', Component: BakePlanner },
   { hash: '#/bake', label: 'Bake', Component: GuidedBake },
+  { hash: '#/help', label: 'Help', Component: Troubleshooting },
 ] as const;
 
 function useHashPage() {

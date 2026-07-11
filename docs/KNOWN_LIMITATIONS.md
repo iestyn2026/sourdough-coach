@@ -16,6 +16,9 @@ every shortcut taken during a milestone gets a line here.
   final "log the result" step can't hand off to the Loaf Log until that page exists.
 - **Oven temperatures are app-chosen drafts** ⚠️ (SOURDOUGH_RULES.md §9), assuming a
   lidded Dutch oven.
+- **Troubleshooting answers are app-drafted** ⚠️ — questions come from the PRD, but
+  every answer awaits Iestyn's review (`src/lib/sourdough/faq.ts`). No search box:
+  25 questions scan fine; add one if the list grows.
 - **The Starter Builder plans a single feed only.** Starting from a very small jar, it
   advises "feed again at peak" rather than scheduling multiple feeds
   (see `DECISIONS.md` #9).

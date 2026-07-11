@@ -3,6 +3,15 @@
 Meaningful changes only — things that affect what the app does, how it's structured, or
 what a rule says. Newest first.
 
+## 2026-07-11 — Milestone 5: Troubleshooting / Common Questions
+
+- Help page: all 25 PRD questions as expandable Q&A cards in four categories
+  (Starter, Dough, Baking, Ingredients). Answers are app-drafted ⚠️ pending Iestyn's
+  review, kept consistent with SOURDOUGH_RULES.md (50–70% rise, 1cm score, 0.5% malt,
+  oven temperatures).
+- 7 new tests (79 total): every PRD question present verbatim, answers short and
+  consistent with the rules.
+
 ## 2026-07-11 — Milestone 4: Guided Bake (interactive bake mode)
 
 - Guided Bake page: the PRD's fifteen steps as an interactive checklist — one step
