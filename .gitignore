@@ -1,0 +1,10 @@
+# Dependencies & build output (arrive with the toolchain milestone)
+node_modules/
+dist/
+
+# Environment & secrets — never commit
+.env
+.env.*
+
+# OS noise
+.DS_Store
