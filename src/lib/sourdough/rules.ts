@@ -1,18 +1,145 @@
 /**
  * rules.ts — named constants and thresholds from docs/SOURDOUGH_RULES.md.
  *
- * Single responsibility: numbers with names. Every constant here must trace back to a
- * rule written in plain English in docs/SOURDOUGH_RULES.md — if a number changes here,
- * that doc changes in the same commit (see CLAUDE.md rule 4).
- *
- * Will contain, roughly:
- *   - DEFAULT_SALT_PERCENT, DEFAULT_STARTER_PERCENT
- *   - hydration/salt/starter/temperature validation ranges
- *   - fermentation reference points (baseline hours at reference temperature)
- *
- * No calculations here — just the values calculations.ts and validation.ts read from.
- *
- * Placeholder until the first build milestone.
+ * Single responsibility: numbers (and coaching sentences) with names. Every value here
+ * traces back to a rule in docs/SOURDOUGH_RULES.md — if a value changes here, that doc
+ * changes in the same commit (CLAUDE.md rule 4). No calculations in this file.
  */
 
-export {};
+import type { FlourType, Inclusion } from './types';
+
+// ---- Defaults (SOURDOUGH_RULES.md §1–2, from the PRD) ----
+
+export const DEFAULT_ADDED_FLOUR_GRAMS = 570;
+export const DEFAULT_STARTER_PERCENT = 20;
+export const DEFAULT_SALT_PERCENT = 2;
+export const HYDRATION_EASY_PERCENT = 68;
+export const HYDRATION_STANDARD_PERCENT = 69;
+
+/** Starter is assumed 100% hydration: equal parts flour and water by weight. */
+export const STARTER_FLOUR_FRACTION = 0.5;
+
+/** ⚠️ Interim default, not in the PRD (DECISIONS.md #6). */
+export const MALT_PERCENT = 0.5;
+
+// ---- Flour types (PRD page 2) ----
+
+export const FLOUR_TYPES: readonly FlourType[] = [
+  'high-grade-white',
+  'plain-white',
+  'wholemeal',
+  'rye',
+  'spelt',
+  'pearl-barley',
+];
+
+export const FLOUR_LABELS: Record<FlourType, string> = {
+  'high-grade-white': 'High-grade white / bread flour',
+  'plain-white': 'Plain white flour',
+  wholemeal: 'Wholemeal',
+  rye: 'Rye',
+  spelt: 'Spelt',
+  'pearl-barley': 'Pearl barley',
+};
+
+// ---- Hydration guidance for flour mixes (SOURDOUGH_RULES.md §2) ----
+// Display only — the app NEVER changes the water automatically (explicit PRD rule).
+// Checked top to bottom; the first match wins.
+
+export const MIX_HYDRATION_GUIDANCE: ReadonlyArray<{
+  flour: FlourType;
+  minPercent: number;
+  maxPercent: number;
+  suggestedRange: string;
+}> = [
+  { flour: 'wholemeal', minPercent: 10, maxPercent: 30, suggestedRange: '69–72%' },
+  { flour: 'rye', minPercent: 10, maxPercent: 20, suggestedRange: '68–70%' },
+  { flour: 'spelt', minPercent: 10, maxPercent: 20, suggestedRange: '68–70%' },
+  { flour: 'pearl-barley', minPercent: 10, maxPercent: 15, suggestedRange: '68–70%' },
+];
+
+/** "Mostly X flour" means X is at least half the mix. */
+export const MOSTLY_THRESHOLD_PERCENT = 50;
+
+export const MOSTLY_HYDRATION_GUIDANCE: ReadonlyArray<{
+  flour: FlourType;
+  suggestedRange: string;
+}> = [
+  { flour: 'plain-white', suggestedRange: '67–69%' },
+  { flour: 'high-grade-white', suggestedRange: '68–70%' },
+];
+
+// ---- Expected dough feel (⚠️ draft wording, SOURDOUGH_RULES.md §7) ----
+// Checked top to bottom; first band whose maxHydration the dough is under wins.
+
+export const DOUGH_FEEL_BANDS: ReadonlyArray<{
+  maxHydrationPercent: number;
+  text: string;
+}> = [
+  {
+    maxHydrationPercent: 66,
+    text: 'Firm and easy to handle — a confidence-building dough.',
+  },
+  {
+    maxHydrationPercent: 69.5,
+    text: 'Soft and slightly tacky, but manageable — lightly wet hands help.',
+  },
+  {
+    maxHydrationPercent: 72,
+    text: 'Noticeably sticky and slack — keep your hands wet and move confidently.',
+  },
+  {
+    maxHydrationPercent: Infinity,
+    text: 'Very wet and loose — expect some spreading and tricky shaping.',
+  },
+];
+
+/** Flours that drink extra water; ≥ this share of the mix earns the note below. */
+export const THIRSTY_FLOURS: readonly FlourType[] = ['wholemeal', 'rye', 'pearl-barley'];
+export const THIRSTY_MIX_THRESHOLD_PERCENT = 20;
+export const THIRSTY_FEEL_NOTE =
+  'Whole-grain flours soak up water, so it may feel a little drier than the number suggests.';
+
+export const RYE_FEEL_THRESHOLD_PERCENT = 15;
+export const RYE_FEEL_NOTE = 'Rye makes dough stickier and less stretchy — that is normal.';
+
+// ---- Inclusions (⚠️ interim amounts, SOURDOUGH_RULES.md §8) ----
+
+export const INCLUSION_GUIDANCE: Record<
+  Inclusion,
+  { label: string; percentOfTotalFlour: number | null; note: string }
+> = {
+  olives: {
+    label: 'Olives',
+    percentOfTotalFlour: 15,
+    note: 'pitted and well drained — fold in at the first stretch and fold',
+  },
+  seeds: {
+    label: 'Seeds',
+    percentOfTotalFlour: 10,
+    note: 'toasted if you like — fold in at the first stretch and fold',
+  },
+  rosemary: {
+    label: 'Rosemary',
+    percentOfTotalFlour: null,
+    note: '1–2 tablespoons, finely chopped — add with the salt',
+  },
+};
+
+// ---- Validation boundaries (⚠️ app-chosen, SOURDOUGH_RULES.md §6) ----
+// Outside error range: calculation is blocked. Outside warn range: coached, not blocked.
+
+export interface Range {
+  errorMin: number;
+  errorMax: number;
+  warnMin: number;
+  warnMax: number;
+}
+
+export const ADDED_FLOUR_RANGE: Range = { errorMin: 100, errorMax: 2000, warnMin: 300, warnMax: 1000 };
+export const HYDRATION_RANGE: Range = { errorMin: 50, errorMax: 110, warnMin: 65, warnMax: 75 };
+export const STARTER_RANGE: Range = { errorMin: 5, errorMax: 50, warnMin: 15, warnMax: 25 };
+export const SALT_RANGE: Range = { errorMin: 0, errorMax: 4, warnMin: 1.8, warnMax: 2.2 };
+
+/** Flour-mix percentages may be off 100% by at most this much (rounding slack). */
+export const MIX_TOTAL_TOLERANCE = 0.5;

@@ -110,3 +110,34 @@ Errors block calculation; warnings coach but allow.
 | Salt % | 0–4% | 1.8–2.2% |
 
 These bounds are ⚠️ app-chosen defaults (the PRD doesn't specify them) — tune freely.
+
+## 7. Expected dough feel ⚠️
+
+Draft wording (app-chosen; the PRD asks for "expected dough feel" but doesn't specify
+text). Band chosen by final hydration:
+
+| Final hydration | Feel |
+|---|---|
+| under 66% | Firm and easy to handle — a confidence-building dough. |
+| 66–69.5% | Soft and slightly tacky, but manageable — lightly wet hands help. |
+| 69.5–72% | Noticeably sticky and slack — keep your hands wet and move confidently. |
+| over 72% | Very wet and loose — expect some spreading and tricky shaping. |
+
+Two notes append when they apply:
+
+- Wholemeal + rye + pearl barley ≥ 20% of the mix → "Whole-grain flours soak up water,
+  so it may feel a little drier than the number suggests."
+- Rye ≥ 15% → "Rye makes dough stickier and less stretchy — that is normal."
+
+## 8. Inclusions ⚠️
+
+Suggested amounts (app-chosen defaults; the PRD names the inclusions but not amounts),
+measured against total flour:
+
+| Inclusion | Amount | When |
+|---|---|---|
+| Olives | ~15% of flour, pitted and drained | fold in at first stretch and fold |
+| Seeds | ~10% of flour, toasted if you like | fold in at first stretch and fold |
+| Rosemary | 1–2 tablespoons, finely chopped | add with the salt |
+
+Inclusions are guidance lines only — they don't change the dough math.

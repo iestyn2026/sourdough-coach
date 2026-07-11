@@ -1,0 +1,288 @@
+/* Sourdough Coach — one small stylesheet, mobile-first, kitchen-friendly.
+   Design intent (PRD UX requirements): card-based, large touch targets,
+   minimal text per screen, calm and friendly. */
+
+:root {
+  --bg: #faf6ef;          /* warm flour-dust background */
+  --card: #ffffff;
+  --ink: #3d3229;         /* dark warm brown, softer than black */
+  --ink-soft: #7a6d5f;
+  --crust: #b7791f;       /* baked-crust amber — primary accent */
+  --crust-dark: #92601a;
+  --line: #e8dfd2;
+  --warn-bg: #fdf3e0;
+  --warn-ink: #8a5a00;
+  --error-bg: #fdeaea;
+  --error-ink: #a03030;
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px 16px 48px;
+}
+
+.app-header {
+  text-align: center;
+  padding: 16px 0 8px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.7rem;
+}
+
+.app-header p,
+.app-footer p {
+  margin: 4px 0 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.app-footer {
+  text-align: center;
+  margin-top: 24px;
+}
+
+/* ---- Cards ---- */
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.card h2 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+}
+
+.hint {
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  margin: 6px 0 0;
+}
+
+/* ---- Inputs ---- */
+
+.field {
+  margin-bottom: 12px;
+}
+
+.field:last-child {
+  margin-bottom: 0;
+}
+
+.field label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+
+input[type='number'] {
+  width: 100%;
+  font-size: 1.15rem;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+input[type='number']:focus {
+  outline: 2px solid var(--crust);
+  border-color: var(--crust);
+}
+
+.unit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.unit-row input {
+  flex: 1;
+}
+
+.unit {
+  color: var(--ink-soft);
+  font-size: 1rem;
+  min-width: 2ch;
+}
+
+/* ---- Segmented buttons (hydration mode) ---- */
+
+.segments {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.segments button {
+  padding: 12px 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--ink);
+  cursor: pointer;
+  min-height: 56px;
+}
+
+.segments button.selected {
+  background: var(--crust);
+  border-color: var(--crust-dark);
+  color: #fff;
+}
+
+.segments button small {
+  display: block;
+  font-weight: 400;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+/* ---- Flour mix grid ---- */
+
+.mix-grid {
+  display: grid;
+  grid-template-columns: 1fr 92px;
+  gap: 8px 12px;
+  align-items: center;
+}
+
+.mix-grid .mix-label {
+  font-size: 0.95rem;
+}
+
+.mix-total {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.mix-total.off {
+  color: var(--error-ink);
+  font-weight: 600;
+}
+
+/* ---- Toggles / checkboxes ---- */
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  font-size: 1rem;
+}
+
+.check-row input[type='checkbox'] {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--crust);
+}
+
+/* ---- Issues ---- */
+
+.issue {
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.issue.warning {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+
+.issue.error {
+  background: var(--error-bg);
+  color: var(--error-ink);
+}
+
+/* ---- Results ---- */
+
+.results {
+  border: 2px solid var(--crust);
+}
+
+.result-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.result-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  gap: 12px;
+}
+
+.result-list li:last-child {
+  border-bottom: none;
+}
+
+.result-list .amount {
+  font-size: 1.25rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.result-list .sub {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+
+.dough-feel {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 12px;
+  font-size: 0.95rem;
+}
+
+details {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--crust-dark);
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+@media (min-width: 480px) {
+  .app-header h1 {
+    font-size: 2rem;
+  }
+}

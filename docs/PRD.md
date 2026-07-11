@@ -2,7 +2,7 @@
 
 > **Status: adopted 2026-07-11** from Iestyn's PRD ("PRD: Sourdough Coach Web App").
 > This is the source of truth for scope. Calculation details live in
-> `SOURDOUGH_RULES.md`; open questions are listed at the bottom of this file.
+> `SOURDOUGH_RULES.md`; open questions are listed at the bottom of this file. If any calculation logic is changed in code, update SOURDOUGH_RULES.md and add a note to DECISIONS.md or CHANGELOG.md explaining the change.
 
 ## Vision
 

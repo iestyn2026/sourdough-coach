@@ -9,9 +9,9 @@
 - **No backend, no database (MVP).** Data is saved in the browser via `localStorage`.
   See `DECISIONS.md` #3.
 
-> **Status:** the toolchain (`package.json`, Vite scaffold) is not set up yet — that is
-> the first build milestone after the PRD is confirmed. Only docs and the logic folder
-> skeleton exist today.
+> **Status:** toolchain live as of milestone 1 (2026-07-11). Run the dev server with
+> `scripts/dev.sh` (Node lives in `~/.local/node`, see `DECISIONS.md` #8); tests with
+> `scripts/dev.sh`'s PATH plus `npm test`. Pages built so far: Loaf Calculator.
 
 ## Layers
 

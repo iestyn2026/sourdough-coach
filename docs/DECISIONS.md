@@ -70,3 +70,27 @@ concrete choice is deferred until the Loaf Log milestone.
 **Why:** No point designing storage before the pages that produce the data exist.
 **Trade-off:** "localStorage only" in the PRD may become "browser-local storage only"
 (localStorage + IndexedDB) — same spirit, needs Iestyn's OK when we get there.
+
+## 8. Milestone 1 build choices (2026-07-11)
+
+**Decision — Node.js installed locally, not system-wide.** This machine had no Node, npm,
+or Homebrew. Node 22 LTS (v22.17.0, official nodejs.org build, checksum verified) was
+installed to `~/.local/node` — user folder only, no admin password, removable by deleting
+that folder. `scripts/dev.sh` puts it on the PATH and starts the dev server.
+**Trade-off:** `npm` won't work in a plain terminal until `~/.local/node/bin` is added to
+the shell PATH; use `scripts/dev.sh` or ask Claude to set up the shell profile.
+
+**Decision — no router yet.** With one page, `App.tsx` renders the Loaf Calculator
+directly. A router gets added when the second page (Starter Builder) exists.
+**Trade-off:** Adding page two touches `App.tsx`; trivial at this size.
+
+**Decision — live recalculation, no "Calculate" button.** Results update as you type;
+invalid input shows a friendly message instead of results.
+**Why:** Fewer taps with floury hands; you see numbers respond to changes, which teaches
+the relationships.
+**Trade-off:** Results shift while typing mid-number — acceptable for a prototype.
+
+**Decision — one plain CSS file, no UI framework.** `src/index.css` holds the whole
+design (~200 lines of commented, ordinary CSS).
+**Why:** Learning goal — every visual choice is inspectable; no framework class soup.
+**Trade-off:** More hand-written CSS as pages grow; revisit if it gets painful.

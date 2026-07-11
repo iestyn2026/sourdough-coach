@@ -3,7 +3,19 @@
 Honest list of what the app assumes, simplifies, or can't do. Grows as the app does —
 every shortcut taken during a milestone gets a line here.
 
-## Current (PRD adopted, no app code yet)
+## Current
+
+- **Flour breakdown lines are rounded individually**, so with some mixes they can sum
+  to a gram or two off the added-flour total (e.g. 570g split three ways). Cosmetic;
+  fix if it bothers anyone.
+- **Dough feel wording and inclusion amounts are app-invented drafts**
+  (`SOURDOUGH_RULES.md` §7–8 ⚠️), not from the PRD or validated by baking.
+- **Results update live while typing** — mid-keystroke values briefly show odd numbers
+  or a validation message (see `DECISIONS.md` #8).
+- **`npm` isn't on the shell PATH** — Node lives in `~/.local/node`; run the app with
+  `scripts/dev.sh` (see `DECISIONS.md` #8).
+
+## From setup (still true)
 
 - **Some rule numbers are interim defaults, not from the PRD** — salt basis (total vs
   added flour), diastatic malt %, and validation ranges. Marked ⚠️ in
@@ -21,5 +33,3 @@ every shortcut taken during a milestone gets a line here.
 - **Metric only** — grams and °C, as used throughout the PRD. No cups/ounces/°F.
 - **Flour-mix hydration guidance is display-only** — the app never auto-adjusts water
   for flour type (explicit PRD requirement, not an oversight).
-- **Placeholder code isn't type-checked yet** — toolchain arrives with milestone 1
-  (see `DECISIONS.md` #5).
