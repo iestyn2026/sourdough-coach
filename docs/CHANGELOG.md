@@ -3,6 +3,18 @@
 Meaningful changes only — things that affect what the app does, how it's structured, or
 what a rule says. Newest first.
 
+## 2026-07-11 — Milestone 4: Guided Bake (interactive bake mode)
+
+- Guided Bake page: the PRD's fifteen steps as an interactive checklist — one step
+  expanded at a time with what-to-do, why it matters, look & feel, and the common
+  beginner mistake; a big "Mark complete" advances to the next step. Progress bar,
+  un-tick support, "start new bake" reset, completion card.
+- Progress persists in localStorage (first use of the storage layer), so a bake
+  survives page reloads.
+- Oven temperatures added to `SOURDOUGH_RULES.md` §9 (⚠️ drafts: 250°C preheat,
+  230°C lid on 20 min, 210°C lid off 20–25 min).
+- 9 new tests (72 total): step content completeness and storage round-trips.
+
 ## 2026-07-11 — Planner practicality rules (Iestyn's feedback)
 
 - All times now display as am/pm instead of 24-hour.

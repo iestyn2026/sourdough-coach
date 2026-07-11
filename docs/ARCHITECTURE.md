@@ -12,7 +12,8 @@
 > **Status:** toolchain live as of milestone 1 (2026-07-11). Run the dev server with
 > `scripts/dev.sh` (Node lives in `~/.local/node`, see `DECISIONS.md` #8); tests with
 > `scripts/dev.sh`'s PATH plus `npm test`. Pages built so far: Loaf Calculator,
-> Starter Builder, Bake Planner (hash navigation — `DECISIONS.md` #9).
+> Starter Builder, Bake Planner, Guided Bake (hash navigation — `DECISIONS.md` #9).
+> The storage layer exists as of milestone 4: `src/storage/guidedBake.ts`.
 
 ## Layers
 

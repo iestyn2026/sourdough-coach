@@ -132,3 +132,23 @@ starter % again rather than reading the calculator's value.
 **Why:** Cross-page state is the Guided Bake / Loaf Log milestone's problem (a "current
 bake session"); building it early would be overbuilding.
 **Trade-off:** A number retyped once or twice until then.
+
+## 11. Milestone 4 build choices (2026-07-11)
+
+**Decision — Guided Bake progress persists in localStorage.** First use of the storage
+layer (`src/storage/guidedBake.ts`): completed step ids + start timestamp, nothing
+more. A bake spans a day or more, so a reload must not lose ticks. Defensive
+throughout — junk or missing storage falls back to a fresh bake.
+
+**Decision — step content lives in `src/lib/sourdough/bakeSteps.ts`, not in the
+component.** It's coaching content with the PRD's four fields per step; tests assert
+all fifteen steps carry every field and that bulk never says "double".
+
+**Decision — one step expanded at a time, current step auto-follows.** Marking a step
+complete collapses it and opens the next incomplete one; completed and upcoming steps
+stay clickable to peek or un-tick. Fits the kitchen: the screen always shows what to
+do now.
+
+**Decision — "Log this bake" handoff deferred.** The PRD wants the final step to
+pre-fill the Loaf Log, which doesn't exist yet. The completion card says so; the
+handoff gets built with the Loaf Log milestone.

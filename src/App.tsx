@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import BakePlanner from './pages/BakePlanner';
+import GuidedBake from './pages/GuidedBake';
 import LoafCalculator from './pages/LoafCalculator';
 import StarterBuilder from './pages/StarterBuilder';
 
@@ -12,6 +13,7 @@ const PAGES = [
   { hash: '#/calculator', label: 'Calculator', Component: LoafCalculator },
   { hash: '#/starter', label: 'Starter', Component: StarterBuilder },
   { hash: '#/planner', label: 'Planner', Component: BakePlanner },
+  { hash: '#/bake', label: 'Bake', Component: GuidedBake },
 ] as const;
 
 function useHashPage() {

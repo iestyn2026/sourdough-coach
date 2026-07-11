@@ -200,3 +200,18 @@ measured against total flour:
 | Rosemary | 1–2 tablespoons, finely chopped | add with the salt |
 
 Inclusions are guidance lines only — they don't change the dough math.
+
+## 9. Baking temperatures ⚠️
+
+App-chosen defaults for the Guided Bake steps (the PRD gives the step list but not
+temperatures). All for a lidded Dutch oven:
+
+| Phase | Setting |
+|---|---|
+| Preheat, Dutch oven + lid inside | 250°C for a full 45 minutes |
+| Bake, lid on | 230°C for 20 minutes |
+| Bake, lid off | 210°C for 20–25 minutes, until deep brown |
+| Cool | at least 1–2 hours before cutting |
+
+Coaching context (PRD pain point): home oven dials overshoot and undershoot — time at
+temperature heats the pot, not the preheat beep.

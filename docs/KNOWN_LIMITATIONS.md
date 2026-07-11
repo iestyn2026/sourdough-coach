@@ -11,6 +11,11 @@ every shortcut taken during a milestone gets a line here.
 - **"Tomorrow morning/evening" are fixed at 8am/6pm** ⚠️ — not yet configurable.
 - **Pages don't share state** — the planner asks for starter % again instead of reading
   the calculator (deliberate until the bake-session milestone, `DECISIONS.md` #10).
+- **Guided Bake steps have no times attached** — the checklist tells you what and how,
+  the Planner tells you when; they're not linked yet. One bake at a time, and the
+  final "log the result" step can't hand off to the Loaf Log until that page exists.
+- **Oven temperatures are app-chosen drafts** ⚠️ (SOURDOUGH_RULES.md §9), assuming a
+  lidded Dutch oven.
 - **The Starter Builder plans a single feed only.** Starting from a very small jar, it
   advises "feed again at peak" rather than scheduling multiple feeds
   (see `DECISIONS.md` #9).

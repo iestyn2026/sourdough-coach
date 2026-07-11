@@ -379,6 +379,137 @@ details summary {
   align-items: center;
 }
 
+/* ---- Guided Bake ---- */
+
+.bake-progress {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.bake-progress h2 {
+  margin-bottom: 2px;
+}
+
+.progress-track {
+  height: 10px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--crust);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.step-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.step-card.current {
+  border-color: var(--crust);
+  border-width: 2px;
+}
+
+.step-card.done {
+  opacity: 0.75;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  min-height: 56px;
+}
+
+.step-tick {
+  flex: 0 0 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  background: var(--bg);
+}
+
+.step-tick.ticked {
+  background: var(--crust);
+  border-color: var(--crust-dark);
+  color: #fff;
+}
+
+.step-title {
+  flex: 1;
+}
+
+.step-title .sub {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+
+.step-chevron {
+  color: var(--ink-soft);
+}
+
+.step-body {
+  padding: 0 16px 16px;
+  border-top: 1px solid var(--line);
+}
+
+.step-body p {
+  margin: 12px 0;
+  font-size: 0.95rem;
+}
+
+.big-button {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border: 1px solid var(--crust-dark);
+  border-radius: 10px;
+  background: var(--crust);
+  color: #fff;
+  cursor: pointer;
+  min-height: 56px;
+}
+
+.big-button:active {
+  background: var(--crust-dark);
+}
+
+.ghost-button {
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--ink-soft);
+  cursor: pointer;
+  min-height: 44px;
+}
+
 @media (min-width: 480px) {
   .app-header h1 {
     font-size: 2rem;
