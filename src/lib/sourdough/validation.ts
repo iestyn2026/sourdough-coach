@@ -5,7 +5,12 @@
  * Messages talk to a home baker, never developer-speak. Ranges live in rules.ts.
  */
 
-import type { CalculatorInput, StarterBuildInput, ValidationIssue } from './types';
+import type {
+  CalculatorInput,
+  PlannerInput,
+  StarterBuildInput,
+  ValidationIssue,
+} from './types';
 import { resolveHydrationPercent } from './calculations';
 import {
   ADDED_FLOUR_RANGE,
@@ -146,6 +151,19 @@ export function validateStarterBuildInput(input: StarterBuildInput): ValidationI
     }
   }
 
+  return issues;
+}
+
+export function validatePlannerInput(input: PlannerInput): ValidationIssue[] {
+  const issues: ValidationIssue[] = [];
+  const issue = checkRange(
+    input.starterPercent,
+    STARTER_RANGE,
+    'starterPercent',
+    `Starter needs to be between ${STARTER_RANGE.errorMin}% and ${STARTER_RANGE.errorMax}% of your flour.`,
+    `Most beginner recipes use ${STARTER_RANGE.warnMin}–${STARTER_RANGE.warnMax}% starter.`,
+  );
+  if (issue) issues.push(issue);
   return issues;
 }
 

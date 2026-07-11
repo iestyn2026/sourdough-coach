@@ -117,6 +117,37 @@ export interface StarterBuildShortfall {
 
 export type StarterBuildResult = StarterBuildPlan | StarterBuildShortfall;
 
+// ---- Bake Planner (PRD page 4) ----
+
+export type BakeGoal = 'now' | 'tomorrow-morning' | 'tomorrow-evening';
+
+/** Everything the user enters on the Bake Planner page. */
+export interface PlannerInput {
+  tempBand: TempBandId;
+  goal: BakeGoal;
+  /** Percent of added flour, as in the calculator. Affects coaching notes only. */
+  starterPercent: number;
+  fridgeProof: boolean;
+}
+
+export interface PlanStep {
+  id: string;
+  label: string;
+  /** When this step starts. */
+  at: Date;
+  /** Human-readable duration or range, e.g. "4–6 hours". */
+  durationLabel: string;
+  note?: string;
+}
+
+export interface BakePlan {
+  steps: PlanStep[];
+  /** When the loaf comes out of the oven. */
+  doneAt: Date;
+  /** Coaching caveats — infeasible start time, late-night bake, unusual starter %. */
+  warnings: string[];
+}
+
 /** errors block calculation; warnings coach but allow (SOURDOUGH_RULES.md §6). */
 export type IssueSeverity = 'error' | 'warning';
 

@@ -3,6 +3,18 @@
 Meaningful changes only — things that affect what the app does, how it's structured, or
 what a rule says. Newest first.
 
+## 2026-07-11 — Milestone 3: Bake Planner
+
+- Bake Planner page: temperature band + bake goal (start now / tomorrow ~8am /
+  tomorrow ~6pm) + starter % + fridge proof → a clock-time timeline from "build
+  starter" to "bake", with the PRD's ranges shown on every step and its 50–70%
+  shape guidance verbatim. Backwards-planned goals warn when the start time has
+  already passed; "start now" warns when it lands a middle-of-the-night bake.
+- 19 new tests (62 total) against a fixed clock.
+- `SOURDOUGH_RULES.md` §4 gained the planner's step-duration table (⚠️ drafts) and
+  midpoint-scheduling explanation. Flour mix dropped as a planner input — no rule
+  uses it (`DECISIONS.md` #10).
+
 ## 2026-07-11 — Ratio guidance (Iestyn's feedback)
 
 - 1:2:2 now carries a "Recommended" tag; a one-line description of the selected ratio

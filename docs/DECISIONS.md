@@ -111,3 +111,24 @@ router if that changes.
 suggests feeding again at peak or a higher ratio — it does not plan multi-feed builds.
 **Trade-off:** Users starting from very little starter get advice, not a full schedule.
 A multi-feed planner is a possible future milestone.
+
+## 10. Milestone 3 build choices (2026-07-11)
+
+**Decision — flour mix dropped from the planner's inputs.** The PRD lists "flour mix
+from calculator" as a Bake Planner input, but no timing rule uses it — an input that
+changes nothing would mislead. Starter % stays because it earns a coaching note
+(more starter = faster fermentation).
+**Trade-off:** Deviates from the PRD's input list; easy to add back if a flour-based
+timing rule ever exists.
+
+**Decision — clock times from range midpoints; ranges stay visible.** Each step shows
+the honest range (e.g. bulk "4–6 hours"); the clock column uses the midpoint so the
+plan reads as actual times of day. Closing line reminds that dough decides, not clocks.
+**Trade-off:** Midpoint times will be wrong in one direction or the other — that's
+inherent; the ranges and coaching language carry the honesty.
+
+**Decision — each page stands alone (no shared state yet).** The planner asks for
+starter % again rather than reading the calculator's value.
+**Why:** Cross-page state is the Guided Bake / Loaf Log milestone's problem (a "current
+bake session"); building it early would be overbuilding.
+**Trade-off:** A number retyped once or twice until then.

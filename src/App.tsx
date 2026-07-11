@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import BakePlanner from './pages/BakePlanner';
 import LoafCalculator from './pages/LoafCalculator';
 import StarterBuilder from './pages/StarterBuilder';
 
@@ -8,8 +9,9 @@ import StarterBuilder from './pages/StarterBuilder';
  * truth: the browser back button works, and pages are bookmarkable.
  */
 const PAGES = [
-  { hash: '#/calculator', label: 'Loaf Calculator', Component: LoafCalculator },
-  { hash: '#/starter', label: 'Starter Builder', Component: StarterBuilder },
+  { hash: '#/calculator', label: 'Calculator', Component: LoafCalculator },
+  { hash: '#/starter', label: 'Starter', Component: StarterBuilder },
+  { hash: '#/planner', label: 'Planner', Component: BakePlanner },
 ] as const;
 
 function useHashPage() {

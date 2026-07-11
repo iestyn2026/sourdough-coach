@@ -5,6 +5,12 @@ every shortcut taken during a milestone gets a line here.
 
 ## Current
 
+- **Planner clock times sit at range midpoints** — real doughs will run early or late;
+  the visible ranges and "dough decides" language carry the honesty
+  (SOURDOUGH_RULES.md §4).
+- **"Tomorrow morning/evening" are fixed at 8am/6pm** ⚠️ — not yet configurable.
+- **Pages don't share state** — the planner asks for starter % again instead of reading
+  the calculator (deliberate until the bake-session milestone, `DECISIONS.md` #10).
 - **The Starter Builder plans a single feed only.** Starting from a very small jar, it
   advises "feed again at peak" rather than scheduling multiple feeds
   (see `DECISIONS.md` #9).

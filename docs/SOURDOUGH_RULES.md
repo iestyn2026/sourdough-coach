@@ -117,6 +117,31 @@ Same four temperature bands:
 | 21–24°C (Moderate) | 4–6h |
 | 24–26°C (Warm) | 3–5h |
 
+### How the planner builds a timeline
+
+"Start now" works forward from the current time; "bake tomorrow morning/evening"
+anchors the oven-in time (⚠️ 8am / 6pm) and works backwards — warning if the required
+start has already passed. Step ranges shown to the user come from the tables above;
+clock times are placed at ⚠️ the midpoints of those ranges. Stretch & folds start
+when bulk starts (they happen during it — the timeline shows the overlap honestly).
+
+⚠️ Step durations the PRD leaves unspecified (draft defaults):
+
+| Step | Duration |
+|---|---|
+| Mix dough | 15 min |
+| Rest after mixing | 45 min |
+| Stretch & folds | 3 folds, 30 min apart, during early bulk |
+| Shape | 15 min |
+| Fridge proof | 8–12h shown; 10h used for clock times |
+| Bench proof (no fridge) | 1½ h |
+| Preheat (Dutch oven in) | 45 min |
+| Bake | ~45 min |
+
+⚠️ App-added nudges: starter % ≠ ~20% shifts fermentation speed (more = faster), noted
+on the plan; a "start now" plan that lands the bake between 10pm and 6am suggests a
+fridge proof instead.
+
 ## 5. Readiness — coaching language
 
 **Never tell users the dough must double.** Default guidance, verbatim:

@@ -191,17 +191,59 @@ export const STARTER_PEAK_NOTE =
 
 // ---- Room temperature bands (SOURDOUGH_RULES.md §3–4) ----
 
+/**
+ * Peak/bulk ranges come from the PRD (SOURDOUGH_RULES.md §3–4). The `Mid` values are
+ * ⚠️ the midpoints the planner uses to place clock times — ranges are what's shown.
+ */
 export const TEMP_BANDS: ReadonlyArray<{
   id: TempBandId;
   label: string;
   rangeLabel: string;
   starterPeakHours: string;
+  starterPeakMidHours: number;
+  bulkHours: string;
+  bulkMidHours: number;
 }> = [
-  { id: 'cold', label: 'Cold', rangeLabel: '15–18°C', starterPeakHours: '8–12 hours' },
-  { id: 'cool', label: 'Cool', rangeLabel: '18–21°C', starterPeakHours: '6–9 hours' },
-  { id: 'moderate', label: 'Moderate', rangeLabel: '21–24°C', starterPeakHours: '4–7 hours' },
-  { id: 'warm', label: 'Warm', rangeLabel: '24–26°C', starterPeakHours: '3–5 hours' },
+  { id: 'cold', label: 'Cold', rangeLabel: '15–18°C', starterPeakHours: '8–12 hours', starterPeakMidHours: 10, bulkHours: '8–12 hours', bulkMidHours: 10 },
+  { id: 'cool', label: 'Cool', rangeLabel: '18–21°C', starterPeakHours: '6–9 hours', starterPeakMidHours: 7.5, bulkHours: '6–8 hours', bulkMidHours: 7 },
+  { id: 'moderate', label: 'Moderate', rangeLabel: '21–24°C', starterPeakHours: '4–7 hours', starterPeakMidHours: 5.5, bulkHours: '4–6 hours', bulkMidHours: 5 },
+  { id: 'warm', label: 'Warm', rangeLabel: '24–26°C', starterPeakHours: '3–5 hours', starterPeakMidHours: 4, bulkHours: '3–5 hours', bulkMidHours: 4 },
 ];
+
+// ---- Bake Planner (SOURDOUGH_RULES.md §4) ----
+
+/** ⚠️ Step durations the PRD leaves unspecified — draft defaults, in minutes. */
+export const PLAN_TIMES = {
+  mixMinutes: 15,
+  restMinutes: 45,
+  foldCount: 3,
+  foldIntervalMinutes: 30,
+  shapeMinutes: 15,
+  fridgeProofHours: 10, // shown as the 8–12h range
+  fridgeProofLabel: '8–12 hours',
+  benchProofMinutes: 90,
+  preheatMinutes: 45,
+  bakeMinutes: 45,
+  /** ⚠️ What "tomorrow morning/evening" mean as oven-in times. */
+  morningBakeHour: 8,
+  eveningBakeHour: 18,
+} as const;
+
+/** PRD default guidance, verbatim — never tell users dough must double (§5). */
+export const BULK_TARGET_GUIDANCE =
+  'Shape when the dough has risen around 50–70%, looks puffy, has rounded edges, ' +
+  'shows bubbles around the sides, and jiggles slightly.';
+
+/** PRD note for cold kitchens (§4). */
+export const OVERNIGHT_BULK_NOTE =
+  'In a cold room, an overnight room-temperature bulk can be appropriate if the dough ' +
+  'has only risen 20–40% after several hours.';
+
+/** ⚠️ App-added nudge; the timing tables assume roughly 20% starter. */
+export const STARTER_SPEED_NOTE = (percent: number) =>
+  `Your plan uses ${percent}% starter — the timing ranges assume about 20%. More ` +
+  `starter ferments faster, less ferments slower, so lean toward the ` +
+  `${percent > 20 ? 'early' : 'late'} end of each range.`;
 
 // ---- Validation boundaries (⚠️ app-chosen, SOURDOUGH_RULES.md §6) ----
 // Outside error range: calculation is blocked. Outside warn range: coached, not blocked.

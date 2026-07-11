@@ -7,19 +7,27 @@
  */
 
 import type {
+  BakePlan,
   CalculatorInput,
   CalculatorResult,
   FlourBreakdownLine,
   FlourMix,
   FlourType,
+  PlanStep,
+  PlannerInput,
   StarterBuildInput,
   StarterBuildResult,
 } from './types';
 import {
   BUILD_BUFFER_GRAMS,
+  BULK_TARGET_GUIDANCE,
   DOUGH_FEEL_BANDS,
   FEED_RATIOS,
+  OVERNIGHT_BULK_NOTE,
+  PLAN_TIMES,
   STARTER_FLOUR_FEED_WORDS,
+  STARTER_PEAK_NOTE,
+  STARTER_SPEED_NOTE,
   TEMP_BANDS,
   HYDRATION_EASY_PERCENT,
   HYDRATION_STANDARD_PERCENT,
@@ -210,4 +218,134 @@ export function buildStarter(input: StarterBuildInput): StarterBuildResult {
     instructions,
     peakHoursLabel: band.starterPeakHours,
   };
+}
+
+// ---- Bake Planner (SOURDOUGH_RULES.md §4) ----
+
+const MINUTE_MS = 60_000;
+const addMinutes = (d: Date, minutes: number) => new Date(d.getTime() + minutes * MINUTE_MS);
+
+/** Round up to the next 5 minutes so "start now" plans read cleanly. */
+const roundUpTo5Minutes = (d: Date) =>
+  new Date(Math.ceil(d.getTime() / (5 * MINUTE_MS)) * 5 * MINUTE_MS);
+
+const hoursLabel = (h: number) => (h === 1 ? 'about 1 hour' : `about ${h} hours`);
+
+/**
+ * A rough bake timeline (SOURDOUGH_RULES.md §4).
+ *
+ * Ranges shown on each step come straight from the temperature tables; the clock
+ * times are placed using the midpoints of those ranges (⚠️ planner choice). "Start
+ * now" works forward from `now`; the tomorrow goals anchor the bake time and work
+ * backwards to find the start.
+ *
+ * Times are estimates for planning your day — the dough's look and feel decide when
+ * to actually move on, and the notes say so.
+ */
+export function planBake(input: PlannerInput, now: Date): BakePlan {
+  const band = TEMP_BANDS.find((b) => b.id === input.tempBand) ?? TEMP_BANDS[2];
+  const t = PLAN_TIMES;
+
+  const peakMinutes = band.starterPeakMidHours * 60;
+  const bulkMinutes = band.bulkMidHours * 60;
+  const proofMinutes = input.fridgeProof ? t.fridgeProofHours * 60 : t.benchProofMinutes;
+  const minutesBeforeBake =
+    peakMinutes + t.mixMinutes + t.restMinutes + bulkMinutes + t.shapeMinutes +
+    proofMinutes + t.preheatMinutes;
+
+  const warnings: string[] = [];
+  let start: Date;
+
+  if (input.goal === 'now') {
+    start = roundUpTo5Minutes(now);
+  } else {
+    // Anchor the oven-in time at tomorrow 08:00 or 18:00, then walk backwards.
+    const bakeAt = new Date(now);
+    bakeAt.setDate(bakeAt.getDate() + 1);
+    bakeAt.setHours(
+      input.goal === 'tomorrow-morning' ? t.morningBakeHour : t.eveningBakeHour,
+      0, 0, 0,
+    );
+    start = addMinutes(bakeAt, -minutesBeforeBake);
+    if (start < now) {
+      warnings.push(
+        `To have the loaf in the oven by ${input.goal === 'tomorrow-morning' ? '8am' : '6pm'} ` +
+          `tomorrow, you'd need to start at a time that's already passed. The plan below ` +
+          `shows those times anyway — consider "Start now" or a later bake goal.`,
+      );
+    }
+  }
+
+  const steps: PlanStep[] = [];
+  let clock = start;
+  const step = (id: string, label: string, durationLabel: string, note?: string) =>
+    steps.push({ id, label, at: clock, durationLabel, note });
+
+  step('build-starter', 'Build starter', band.starterPeakHours, STARTER_PEAK_NOTE);
+  clock = addMinutes(clock, peakMinutes);
+
+  step('mix', 'Mix dough', `${t.mixMinutes} minutes`);
+  clock = addMinutes(clock, t.mixMinutes);
+
+  step('rest', 'Rest', `${t.restMinutes} minutes`, 'Cover the dough and let the flour fully hydrate.');
+  clock = addMinutes(clock, t.restMinutes);
+
+  // Folds happen DURING the first stretch of bulk — same start time, on purpose.
+  step(
+    'folds',
+    'Stretch & folds',
+    `${t.foldCount} folds, ${t.foldIntervalMinutes} minutes apart`,
+    'Wet your hands; stretch one side up and fold it over. Turn, repeat all four sides.',
+  );
+  step(
+    'bulk',
+    'Bulk fermentation',
+    band.bulkHours,
+    input.tempBand === 'cold' ? `${BULK_TARGET_GUIDANCE} ${OVERNIGHT_BULK_NOTE}` : BULK_TARGET_GUIDANCE,
+  );
+  clock = addMinutes(clock, bulkMinutes);
+
+  step('shape', 'Shape', `${t.shapeMinutes} minutes`);
+  clock = addMinutes(clock, t.shapeMinutes);
+
+  if (input.fridgeProof) {
+    step(
+      'fridge-proof',
+      'Fridge proof (in banneton)',
+      t.fridgeProofLabel,
+      'Seam side up, covered. Cold dough scores better and bakes with a better crust.',
+    );
+  } else {
+    step('bench-proof', 'Bench proof', hoursLabel(t.benchProofMinutes / 60));
+  }
+  clock = addMinutes(clock, proofMinutes);
+
+  step(
+    'preheat',
+    'Preheat oven, Dutch oven inside',
+    `${t.preheatMinutes} minutes`,
+    'Home oven dials overshoot or undershoot — a long preheat matters more than the dial.',
+  );
+  clock = addMinutes(clock, t.preheatMinutes);
+
+  step('bake', 'Bake', `about ${t.bakeMinutes} minutes`);
+  clock = addMinutes(clock, t.bakeMinutes);
+
+  const doneAt = clock;
+
+  // ⚠️ Coaching nudges (see rules.ts): timing tables assume ~20% starter.
+  if (Math.abs(input.starterPercent - 20) >= 5) {
+    warnings.push(STARTER_SPEED_NOTE(input.starterPercent));
+  }
+
+  // With a fridge proof the bake time is flexible (8–12h range), so no night warning.
+  const bakeHour = steps[steps.length - 1].at.getHours();
+  if (input.goal === 'now' && !input.fridgeProof && (bakeHour >= 22 || bakeHour < 6)) {
+    warnings.push(
+      'This plan has you baking in the middle of the night. A fridge proof pushes the ' +
+        'bake to whenever suits you tomorrow — the dough only improves.',
+    );
+  }
+
+  return { steps, doneAt, warnings };
 }
