@@ -166,6 +166,25 @@ export const STARTER_FLOUR_FEED_WORDS: Record<StarterFlour, string> = {
 export const WHOLEGRAIN_STARTER_NOTE =
   'Rye and spelt feeds often peak a little sooner — start checking early.';
 
+/** The ratio beginners should reach for (Iestyn, 2026-07-11 — SOURDOUGH_RULES.md §3). */
+export const RECOMMENDED_RATIO: FeedRatioName = '1:2:2';
+
+/**
+ * One-line guidance per ratio (Iestyn, 2026-07-11). Peak times assume a moderate
+ * kitchen (~21–24°C); the temperature-band estimate in the results shifts with room
+ * temperature.
+ */
+export const RATIO_GUIDANCE: Record<FeedRatioName, string> = {
+  '1:1:1':
+    'Equal parts starter, flour, and water — peaks fastest (usually 4–6 hours) but weakens quickly once there.',
+  '1:2:2':
+    'One part starter, two parts flour, two parts water — the standard balance for daily feeding and normal baking windows (6–8 hours).',
+  '1:3:3':
+    'One part starter, three parts flour, three parts water — slowest to peak (8–12 hours), which extends your baking window.',
+  custom:
+    'Bigger X means a slower peak and a longer baking window; smaller X peaks faster but weakens sooner.',
+};
+
 /** Shown verbatim with every timing estimate (PRD requirement). */
 export const STARTER_PEAK_NOTE =
   'Use when doubled, bubbly, and domed, or just starting to flatten.';

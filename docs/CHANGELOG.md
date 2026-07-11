@@ -3,6 +3,13 @@
 Meaningful changes only — things that affect what the app does, how it's structured, or
 what a rule says. Newest first.
 
+## 2026-07-11 — Ratio guidance (Iestyn's feedback)
+
+- 1:2:2 now carries a "Recommended" tag; a one-line description of the selected ratio
+  sits under the buttons; the expandable explainer became "Which ratio should I use?"
+  with Iestyn's quick summary of all three ratios and their peak windows.
+- `SOURDOUGH_RULES.md` §3 gained the ratio-choice table.
+
 ## 2026-07-11 — Milestone 2: Starter Builder
 
 - Starter Builder page: jar amount, starter needed, feeding ratio (1:1:1 / 1:2:2 /

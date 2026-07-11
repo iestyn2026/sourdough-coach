@@ -59,6 +59,20 @@ A feeding ratio of **1:X:X** means 1 part existing starter : X parts flour : X p
 water, by weight. So feeding 20g starter at 1:2:2 = 20g starter + 40g flour + 40g water
 = 100g total. Supported ratios: 1:1:1, 1:2:2, 1:3:3, custom.
 
+### Which ratio to use (Iestyn, 2026-07-11)
+
+**1:2:2 is the recommended default**, shown as such in the app.
+
+| Ratio | Peaks in* | Character |
+|---|---|---|
+| 1:1:1 | 4–6 hours | Fastest to peak, but weakens quickly once there |
+| 1:2:2 | 6–8 hours | The standard balance for daily feeding and normal baking windows |
+| 1:3:3 | 8–12 hours | Slowest to peak — extends your baking window |
+
+\* Assuming a moderate kitchen (~21–24°C). These ratio times are general guidance; the
+plan's own estimate uses the temperature table below, which assumes a typical (1:2:2-ish)
+feed — a 1:3:3 feed will run toward or past the slow end of its band.
+
 Given "starter on hand" and "starter needed", the app tells the user exactly what to
 **keep, discard, and feed** — and makes clear they don't need to use all their existing
 starter. Build slightly more than needed (so there's some left to maintain).

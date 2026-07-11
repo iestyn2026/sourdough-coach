@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 import type { FeedRatioName, StarterFlour, TempBandId } from '../lib/sourdough/types';
 import {
+  RATIO_GUIDANCE,
+  RECOMMENDED_RATIO,
   STARTER_FLOUR_LABELS,
   STARTER_PEAK_NOTE,
   TEMP_BANDS,
@@ -97,9 +99,11 @@ export default function StarterBuilder() {
               onClick={() => setRatio(r)}
             >
               {r === 'custom' ? 'Custom' : r}
+              {r === RECOMMENDED_RATIO && <small>Recommended</small>}
             </button>
           ))}
         </div>
+        <p className="hint">{RATIO_GUIDANCE[ratio]}</p>
         {ratio === 'custom' && (
           <div className="field" style={{ marginTop: 12 }}>
             <label htmlFor="custom-ratio">Your ratio: 1 : X : X, where X is</label>
@@ -113,12 +117,24 @@ export default function StarterBuilder() {
           </div>
         )}
         <details>
-          <summary>What does 1:2:2 mean?</summary>
+          <summary>Which ratio should I use?</summary>
           <p>
-            One part of the starter you already have, two parts flour, two parts water —
-            all by weight. So feeding 20g of starter at 1:2:2 means adding 40g flour and
-            40g water, giving 100g total. Bigger ratios take longer to peak but go
-            further from less starter.
+            A ratio like 1:2:2 means one part of the starter you already have, two parts
+            flour, two parts water — all by weight. So feeding 20g of starter at 1:2:2
+            means adding 40g flour and 40g water, giving 100g total.
+          </p>
+          <p>
+            <strong>1:1:1</strong> — {RATIO_GUIDANCE['1:1:1']}
+          </p>
+          <p>
+            <strong>1:2:2</strong> — {RATIO_GUIDANCE['1:2:2']} Start here if unsure.
+          </p>
+          <p>
+            <strong>1:3:3</strong> — {RATIO_GUIDANCE['1:3:3']}
+          </p>
+          <p>
+            These times assume a moderate kitchen (21–24°C) — the estimate in your plan
+            below adjusts for your room temperature.
           </p>
         </details>
         {issuesFor(['ratio']).map((issue) => (

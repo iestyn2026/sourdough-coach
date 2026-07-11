@@ -10,6 +10,10 @@ every shortcut taken during a milestone gets a line here.
   (see `DECISIONS.md` #9).
 - **The 5g build buffer and the rye/spelt "peaks sooner" note are app-chosen** ⚠️, not
   from the PRD.
+- **Ratio peak times and the temperature-band estimate are independent approximations**
+  and can disagree at the extremes (a 1:3:3 feed in a warm kitchen won't really peak in
+  3–5 hours). The plan shows the temperature-band number; the ratio guidance flags the
+  direction (SOURDOUGH_RULES.md §3).
 - **Flour breakdown lines are rounded individually**, so with some mixes they can sum
   to a gram or two off the added-flour total (e.g. 570g split three ways). Cosmetic;
   fix if it bothers anyone.
