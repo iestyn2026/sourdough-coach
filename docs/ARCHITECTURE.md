@@ -11,7 +11,8 @@
 
 > **Status:** toolchain live as of milestone 1 (2026-07-11). Run the dev server with
 > `scripts/dev.sh` (Node lives in `~/.local/node`, see `DECISIONS.md` #8); tests with
-> `scripts/dev.sh`'s PATH plus `npm test`. Pages built so far: Loaf Calculator.
+> `scripts/dev.sh`'s PATH plus `npm test`. Pages built so far: Loaf Calculator,
+> Starter Builder (hash navigation between them — `DECISIONS.md` #9).
 
 ## Layers
 

@@ -7,7 +7,7 @@
  * docs win and the example is wrong.
  */
 
-import type { CalculatorInput } from './types';
+import type { CalculatorInput, StarterBuildInput } from './types';
 
 /**
  * The standard beginner loaf — the PRD's own worked example (SOURDOUGH_RULES.md §1).
@@ -61,6 +61,64 @@ export const NAIVE_WRONG_WATER_GRAMS = 393;
  *   breakdown    = 80% × 500 = 400g white, 20% × 500 = 100g wholemeal
  *   wholemeal is 20% → suggested hydration range is 69–72% (display only)
  */
+/**
+ * The PRD's own Starter Builder example (SOURDOUGH_RULES.md §3).
+ *
+ * "You have 80g starter but only need 125g active starter. Keep 20g starter, discard
+ * 60g, then feed 20g starter + 55g flour + 55g water = 130g total."
+ *
+ * By hand: target = 125 + 5 buffer = 130g. That feed is 20:55:55 = a custom 1:2.75:2.75
+ * ratio. Growth factor = 1 + 2×2.75 = 6.5, and 130 ÷ 6.5 = 20g to keep. ✓
+ */
+export const PRD_STARTER_BUILD: {
+  input: StarterBuildInput;
+  expected: Record<string, number>;
+} = {
+  input: {
+    haveGrams: 80,
+    needGrams: 125,
+    ratio: 'custom',
+    customRatioPart: 2.75,
+    starterFlour: 'white',
+    tempBand: 'moderate',
+  },
+  expected: {
+    keepGrams: 20,
+    discardGrams: 60,
+    feedFlourGrams: 55,
+    feedWaterGrams: 55,
+    totalGrams: 130,
+    leftoverGrams: 5,
+  },
+};
+
+/**
+ * Same jar and need at the everyday 1:2:2 ratio.
+ *
+ * By hand: growth factor = 1 + 2×2 = 5. Keep = 130 ÷ 5 = 26g, discard 54g,
+ * feed 52g flour + 52g water = 130g total.
+ */
+export const EVERYDAY_STARTER_BUILD: {
+  input: StarterBuildInput;
+  expected: Record<string, number>;
+} = {
+  input: {
+    haveGrams: 80,
+    needGrams: 125,
+    ratio: '1:2:2',
+    starterFlour: 'rye',
+    tempBand: 'cool',
+  },
+  expected: {
+    keepGrams: 26,
+    discardGrams: 54,
+    feedFlourGrams: 52,
+    feedWaterGrams: 52,
+    totalGrams: 130,
+    leftoverGrams: 5,
+  },
+};
+
 export const EASY_WHOLEMEAL_LOAF: {
   input: CalculatorInput;
   expected: Record<string, number>;

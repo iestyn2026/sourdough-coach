@@ -67,6 +67,56 @@ export interface CalculatorResult {
   inclusionGuidance: string[];
 }
 
+// ---- Starter Builder (PRD page 3) ----
+
+/** 1:X:X = one part existing starter, X parts flour, X parts water, by weight. */
+export type FeedRatioName = '1:1:1' | '1:2:2' | '1:3:3' | 'custom';
+
+export type StarterFlour = 'white' | 'rye' | 'spelt' | 'mix';
+
+/** The four room-temperature bands used throughout the app (SOURDOUGH_RULES.md §3–4). */
+export type TempBandId = 'cold' | 'cool' | 'moderate' | 'warm';
+
+/** Everything the user enters on the Starter Builder page. */
+export interface StarterBuildInput {
+  /** Starter currently in the jar. */
+  haveGrams: number;
+  /** Active starter the recipe needs. */
+  needGrams: number;
+  ratio: FeedRatioName;
+  /** The X in 1:X:X — only read when ratio is 'custom'. */
+  customRatioPart?: number;
+  starterFlour: StarterFlour;
+  tempBand: TempBandId;
+}
+
+/** A workable single-feed plan: exactly what to keep, discard, and feed. */
+export interface StarterBuildPlan {
+  kind: 'plan';
+  keepGrams: number;
+  discardGrams: number;
+  feedFlourGrams: number;
+  feedWaterGrams: number;
+  /** What's in the jar after feeding = keep + flour + water. */
+  totalGrams: number;
+  /** What's left after the bake takes what it needs — seed for next time. */
+  leftoverGrams: number;
+  /** The whole plan as one friendly sentence (PRD example format). */
+  instructions: string;
+  /** e.g. "4–7 hours" for the chosen temperature band. */
+  peakHoursLabel: string;
+}
+
+/** Not enough starter in the jar to reach the target in one feed at this ratio. */
+export interface StarterBuildShortfall {
+  kind: 'not-enough';
+  /** What feeding everything they have at this ratio would produce. */
+  oneFeedTotalGrams: number;
+  message: string;
+}
+
+export type StarterBuildResult = StarterBuildPlan | StarterBuildShortfall;
+
 /** errors block calculation; warnings coach but allow (SOURDOUGH_RULES.md §6). */
 export type IssueSeverity = 'error' | 'warning';
 
@@ -75,7 +125,10 @@ export type IssueField =
   | 'flourMix'
   | 'hydration'
   | 'starterPercent'
-  | 'saltPercent';
+  | 'saltPercent'
+  | 'haveGrams'
+  | 'needGrams'
+  | 'ratio';
 
 export interface ValidationIssue {
   severity: IssueSeverity;

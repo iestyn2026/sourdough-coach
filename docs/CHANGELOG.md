@@ -3,6 +3,17 @@
 Meaningful changes only — things that affect what the app does, how it's structured, or
 what a rule says. Newest first.
 
+## 2026-07-11 — Milestone 2: Starter Builder
+
+- Starter Builder page: jar amount, starter needed, feeding ratio (1:1:1 / 1:2:2 /
+  1:3:3 / custom), starter flour, temperature band → exact keep/discard/feed plan in
+  the PRD's sentence format, plus time-to-peak estimate and the "doubled, bubbly,
+  domed" note. Handles the not-enough-starter case with advice instead of a plan.
+- Navigation added: hand-rolled hash routing between the two pages (`DECISIONS.md` #9).
+- 12 new tests (43 total), anchored to the PRD's own example: 80g jar, 125g needed →
+  keep 20g, discard 60g, feed 55g + 55g = 130g.
+- `SOURDOUGH_RULES.md` §3 gained the build formula and 5g buffer ⚠️.
+
 ## 2026-07-11 — Milestone 1: Loaf Calculator
 
 - **The app exists and runs.** Vite + React + TypeScript toolchain set up; Node 22

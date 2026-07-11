@@ -5,13 +5,16 @@
  * Messages talk to a home baker, never developer-speak. Ranges live in rules.ts.
  */
 
-import type { CalculatorInput, ValidationIssue } from './types';
+import type { CalculatorInput, StarterBuildInput, ValidationIssue } from './types';
 import { resolveHydrationPercent } from './calculations';
 import {
   ADDED_FLOUR_RANGE,
+  CUSTOM_RATIO_RANGE,
   HYDRATION_RANGE,
   MIX_TOTAL_TOLERANCE,
   SALT_RANGE,
+  STARTER_HAVE_RANGE,
+  STARTER_NEED_RANGE,
   STARTER_RANGE,
   type Range,
 } from './rules';
@@ -94,6 +97,53 @@ export function validateCalculatorInput(input: CalculatorInput): ValidationIssue
       field: 'flourMix',
       message: `Your flour mix adds up to ${mixTotal}% — it needs to total 100%.`,
     });
+  }
+
+  return issues;
+}
+
+export function validateStarterBuildInput(input: StarterBuildInput): ValidationIssue[] {
+  const issues: ValidationIssue[] = [];
+  const push = (issue: ValidationIssue | null) => issue && issues.push(issue);
+
+  push(
+    checkRange(
+      input.haveGrams,
+      STARTER_HAVE_RANGE,
+      'haveGrams',
+      'Enter how much starter is in your jar (even 1g works).',
+      `That's an unusual amount of starter to have — most jars hold ${STARTER_HAVE_RANGE.warnMin}–${STARTER_HAVE_RANGE.warnMax}g.`,
+    ),
+  );
+
+  push(
+    checkRange(
+      input.needGrams,
+      STARTER_NEED_RANGE,
+      'needGrams',
+      `Starter needed should be between ${STARTER_NEED_RANGE.errorMin}g and ${STARTER_NEED_RANGE.errorMax}g.`,
+      `Most home bakes need ${STARTER_NEED_RANGE.warnMin}–${STARTER_NEED_RANGE.warnMax}g of starter.`,
+    ),
+  );
+
+  if (input.ratio === 'custom') {
+    if (!Number.isFinite(input.customRatioPart)) {
+      issues.push({
+        severity: 'error',
+        field: 'ratio',
+        message: 'Enter the X in your custom 1:X:X ratio.',
+      });
+    } else {
+      push(
+        checkRange(
+          input.customRatioPart!,
+          CUSTOM_RATIO_RANGE,
+          'ratio',
+          `Custom ratios work between 1:${CUSTOM_RATIO_RANGE.errorMin} and 1:${CUSTOM_RATIO_RANGE.errorMax} parts flour and water.`,
+          `Ratios beyond 1:${CUSTOM_RATIO_RANGE.warnMax}:${CUSTOM_RATIO_RANGE.warnMax} take much longer to peak.`,
+        ),
+      );
+    }
   }
 
   return issues;

@@ -5,6 +5,11 @@ every shortcut taken during a milestone gets a line here.
 
 ## Current
 
+- **The Starter Builder plans a single feed only.** Starting from a very small jar, it
+  advises "feed again at peak" rather than scheduling multiple feeds
+  (see `DECISIONS.md` #9).
+- **The 5g build buffer and the rye/spelt "peaks sooner" note are app-chosen** ⚠️, not
+  from the PRD.
 - **Flour breakdown lines are rounded individually**, so with some mixes they can sum
   to a gram or two off the added-flour total (e.g. 570g split three ways). Cosmetic;
   fix if it bothers anyone.

@@ -6,7 +6,13 @@
  * changes in the same commit (CLAUDE.md rule 4). No calculations in this file.
  */
 
-import type { FlourType, Inclusion } from './types';
+import type {
+  FeedRatioName,
+  FlourType,
+  Inclusion,
+  StarterFlour,
+  TempBandId,
+} from './types';
 
 // ---- Defaults (SOURDOUGH_RULES.md §1–2, from the PRD) ----
 
@@ -126,6 +132,58 @@ export const INCLUSION_GUIDANCE: Record<
   },
 };
 
+// ---- Starter building (SOURDOUGH_RULES.md §3) ----
+
+/** The X in 1:X:X for the preset ratios. */
+export const FEED_RATIOS: Record<Exclude<FeedRatioName, 'custom'>, number> = {
+  '1:1:1': 1,
+  '1:2:2': 2,
+  '1:3:3': 3,
+};
+
+/**
+ * ⚠️ Build this much more than the recipe needs, so a seed of starter survives the
+ * bake (the PRD example builds 130g for a 125g need).
+ */
+export const BUILD_BUFFER_GRAMS = 5;
+
+export const STARTER_FLOUR_LABELS: Record<StarterFlour, string> = {
+  white: 'White',
+  rye: 'Rye',
+  spelt: 'Spelt',
+  mix: 'Mix',
+};
+
+/** How the starter flour reads inside the feeding instructions. */
+export const STARTER_FLOUR_FEED_WORDS: Record<StarterFlour, string> = {
+  white: 'white flour',
+  rye: 'rye flour',
+  spelt: 'spelt flour',
+  mix: 'your flour mix',
+};
+
+/** ⚠️ App-added coaching note, not from the PRD. */
+export const WHOLEGRAIN_STARTER_NOTE =
+  'Rye and spelt feeds often peak a little sooner — start checking early.';
+
+/** Shown verbatim with every timing estimate (PRD requirement). */
+export const STARTER_PEAK_NOTE =
+  'Use when doubled, bubbly, and domed, or just starting to flatten.';
+
+// ---- Room temperature bands (SOURDOUGH_RULES.md §3–4) ----
+
+export const TEMP_BANDS: ReadonlyArray<{
+  id: TempBandId;
+  label: string;
+  rangeLabel: string;
+  starterPeakHours: string;
+}> = [
+  { id: 'cold', label: 'Cold', rangeLabel: '15–18°C', starterPeakHours: '8–12 hours' },
+  { id: 'cool', label: 'Cool', rangeLabel: '18–21°C', starterPeakHours: '6–9 hours' },
+  { id: 'moderate', label: 'Moderate', rangeLabel: '21–24°C', starterPeakHours: '4–7 hours' },
+  { id: 'warm', label: 'Warm', rangeLabel: '24–26°C', starterPeakHours: '3–5 hours' },
+];
+
 // ---- Validation boundaries (⚠️ app-chosen, SOURDOUGH_RULES.md §6) ----
 // Outside error range: calculation is blocked. Outside warn range: coached, not blocked.
 
@@ -143,3 +201,7 @@ export const SALT_RANGE: Range = { errorMin: 0, errorMax: 4, warnMin: 1.8, warnM
 
 /** Flour-mix percentages may be off 100% by at most this much (rounding slack). */
 export const MIX_TOTAL_TOLERANCE = 0.5;
+
+export const STARTER_HAVE_RANGE: Range = { errorMin: 1, errorMax: 2000, warnMin: 10, warnMax: 500 };
+export const STARTER_NEED_RANGE: Range = { errorMin: 10, errorMax: 2000, warnMin: 50, warnMax: 300 };
+export const CUSTOM_RATIO_RANGE: Range = { errorMin: 0.5, errorMax: 10, warnMin: 1, warnMax: 5 };

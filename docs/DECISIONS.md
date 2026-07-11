@@ -94,3 +94,20 @@ the relationships.
 design (~200 lines of commented, ordinary CSS).
 **Why:** Learning goal — every visual choice is inspectable; no framework class soup.
 **Trade-off:** More hand-written CSS as pages grow; revisit if it gets painful.
+
+## 9. Milestone 2 build choices (2026-07-11)
+
+**Decision — hand-rolled hash navigation instead of react-router.** ~20 lines in
+`App.tsx`: the URL hash (`#/starter`) picks the page, `hashchange` keeps React in sync.
+Back button and bookmarks work.
+**Why:** One less dependency and no router concepts to learn; the whole mechanism is
+readable in one screen.
+**Trade-off:** No nested routes or URL params — fine for seven flat pages; swap for a
+router if that changes.
+
+**Decision — starter build targets need + 5g buffer, single feed.** Keep =
+(need + 5g) ÷ (1 + 2X) rounded up. The 5g mirrors the PRD example (130g built for a
+125g need). If the jar can't reach the target in one feed, the app explains and
+suggests feeding again at peak or a higher ratio — it does not plan multi-feed builds.
+**Trade-off:** Users starting from very little starter get advice, not a full schedule.
+A multi-feed planner is a possible future milestone.

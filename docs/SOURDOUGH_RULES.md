@@ -66,6 +66,21 @@ starter. Build slightly more than needed (so there's some left to maintain).
 Example (from the PRD): "You have 80g starter but only need 125g active starter. Keep
 20g, discard 60g, then feed 20g starter + 55g flour + 55g water = 130g total."
 
+### How the app works it out
+
+Feeding at 1:X:X multiplies the starter you keep by (1 + 2X). So the app works
+backwards from the target:
+
+- **Target** = starter needed + **5g buffer** ⚠️ so a seed survives the bake (the PRD
+  example builds 130g for a 125g need — that's where the 5g comes from).
+- **Keep** = target ÷ (1 + 2X), rounded up to whole grams. **Discard** the rest (or
+  save it for crackers/pancakes). **Feed** = X × keep of flour, and the same of water.
+- If the jar holds less than the keep amount, one feed can't reach the target: the app
+  says what one feed would give and suggests feeding again at peak, or a higher ratio.
+
+⚠️ App-added note (not from the PRD): rye and spelt feeds often peak a little sooner —
+shown when those flours are chosen.
+
 ### Time to peak, by room temperature
 
 | Room temperature | Starter peaks in |

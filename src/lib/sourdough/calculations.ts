@@ -12,9 +12,15 @@ import type {
   FlourBreakdownLine,
   FlourMix,
   FlourType,
+  StarterBuildInput,
+  StarterBuildResult,
 } from './types';
 import {
+  BUILD_BUFFER_GRAMS,
   DOUGH_FEEL_BANDS,
+  FEED_RATIOS,
+  STARTER_FLOUR_FEED_WORDS,
+  TEMP_BANDS,
   HYDRATION_EASY_PERCENT,
   HYDRATION_STANDARD_PERCENT,
   INCLUSION_GUIDANCE,
@@ -137,5 +143,71 @@ export function calculateLoaf(input: CalculatorInput): CalculatorResult {
     doughFeel: describeDoughFeel(hydrationPercent, input.flourMix),
     suggestedHydration: suggestedHydrationForMix(input.flourMix),
     inclusionGuidance,
+  };
+}
+
+// ---- Starter Builder (SOURDOUGH_RULES.md §3) ----
+
+/** The X in 1:X:X for whatever ratio the user picked. */
+export function resolveRatioPart(input: StarterBuildInput): number {
+  return input.ratio === 'custom'
+    ? (input.customRatioPart ?? FEED_RATIOS['1:2:2'])
+    : FEED_RATIOS[input.ratio];
+}
+
+/**
+ * Single-feed starter build plan (SOURDOUGH_RULES.md §3).
+ *
+ * Feeding at 1:X:X multiplies what you keep by (1 + 2X). So to end up with the target
+ * (need + a small buffer to keep the starter alive), work backwards:
+ *   keep = target ÷ (1 + 2X), rounded up to whole grams; feed = X × keep flour + water.
+ *
+ * The point the PRD insists on: the user does NOT need to feed everything in the jar.
+ *
+ * Assumes input has already passed validation.ts with no errors.
+ */
+export function buildStarter(input: StarterBuildInput): StarterBuildResult {
+  const x = resolveRatioPart(input);
+  const growthFactor = 1 + 2 * x;
+  const targetGrams = input.needGrams + BUILD_BUFFER_GRAMS;
+  const keepGrams = Math.ceil(targetGrams / growthFactor);
+
+  if (keepGrams > input.haveGrams) {
+    const oneFeedTotalGrams = Math.round(input.haveGrams * growthFactor);
+    return {
+      kind: 'not-enough',
+      oneFeedTotalGrams,
+      message:
+        `Feeding all ${input.haveGrams}g of your starter at 1:${x}:${x} gives about ` +
+        `${oneFeedTotalGrams}g — short of the ${targetGrams}g you need. Either feed it ` +
+        `all now and feed again once it doubles, or pick a higher ratio like 1:3:3.`,
+    };
+  }
+
+  const feedFlourGrams = Math.ceil(keepGrams * x);
+  const feedWaterGrams = feedFlourGrams;
+  const totalGrams = keepGrams + feedFlourGrams + feedWaterGrams;
+  const discardGrams = input.haveGrams - keepGrams;
+  const flourWord = STARTER_FLOUR_FEED_WORDS[input.starterFlour];
+
+  // Same shape as the PRD's example sentence, so it reads like a coach's note.
+  const discardPart = discardGrams > 0 ? `, discard ${discardGrams}g` : '';
+  const instructions =
+    `You have ${input.haveGrams}g starter but only need ${input.needGrams}g active ` +
+    `starter. Keep ${keepGrams}g${discardPart}, then feed ${keepGrams}g starter + ` +
+    `${feedFlourGrams}g ${flourWord} + ${feedWaterGrams}g water = ${totalGrams}g total.`;
+
+  const band = TEMP_BANDS.find((b) => b.id === input.tempBand) ?? TEMP_BANDS[2];
+
+  return {
+    kind: 'plan',
+    keepGrams,
+    discardGrams,
+    feedFlourGrams,
+    feedWaterGrams,
+    totalGrams,
+    leftoverGrams: totalGrams - input.needGrams,
+    instructions,
+    peakHoursLabel: band.starterPeakHours,
   };
 }
