@@ -43,8 +43,13 @@ sourdough-coach/
     │   ├── validation.ts      # input checks with human-readable messages
     │   ├── examples.ts        # worked examples doubling as test fixtures
     │   └── *.test.ts          # tests, colocated (added with the toolchain)
-    ├── components/            # React UI (future milestone)
-    └── storage/               # localStorage wrapper (future milestone)
+    ├── components/            # shared React UI pieces (future milestones)
+    ├── pages/                 # one folder per PRD page: Home, LoafCalculator,
+    │                          #   StarterBuilder, BakePlanner, GuidedBake,
+    │                          #   Troubleshooting, LoafLog (built one at a time)
+    └── storage/               # browser-local persistence wrapper (future milestone;
+                               #   localStorage, possibly IndexedDB for photos —
+                               #   see DECISIONS.md #7)
 ```
 
 ## Data flow

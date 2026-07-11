@@ -2,64 +2,111 @@
 
 This document is the **source of truth** for every calculation and fermentation rule in
 the app. The code in `src/lib/sourdough/` must match what's written here, and every rule
-here should have a matching test. If a rule changes, this file changes in the same commit.
+here gets a matching test. If a rule changes, this file changes in the same commit.
 
-> **Status: draft defaults.** These are widely used baseline rules, written down so we
-> have something concrete to confirm or correct against Iestyn's PRD. Nothing here is
-> final until reviewed.
+> **Status: adopted 2026-07-11** from the PRD, replacing the earlier generic drafts.
+> Items marked ⚠️ are defaults awaiting Iestyn's confirmation (see `PRD.md` → Open
+> questions).
 
-## 1. Baker's percentages
+## 1. Baker's percentages & the starter rule
 
-Everything is measured relative to **total flour weight = 100%**. This is the standard
-way bakers scale recipes up and down.
+Percentages are relative to flour weight. The starter is itself flour + water — **assumed
+100% hydration** (equal parts by weight), so 114g starter = 57g flour + 57g water.
 
-- **Hydration** = water weight ÷ flour weight. A "75% hydration" dough with 500g flour
-  has 375g water.
-- **Salt** is typically 1.8–2.2% of flour weight (default: 2%).
-- **Starter** is typically 15–25% of flour weight (default: 20%).
+The one rule the app must never get wrong: **hydration counts the flour and water inside
+the starter.** Never compute water as hydration % × added flour.
 
-## 2. Starter counts as flour and water
+**Definitions:**
 
-A sourdough starter is itself flour + water (usually at 100% hydration, i.e. equal parts).
-When calculating a dough's *true* hydration, the flour and water inside the starter must
-be counted:
+- *Added flour* — flour the user weighs into the dough (default **570g**), excluding
+  starter flour.
+- *Total flour* = added flour + starter flour.
+- *Starter %* is applied to **added flour** (per the PRD example: 20% × 570g = 114g).
+- *Hydration* = total water ÷ total flour.
+- *Salt %* ⚠️ applied to **total flour** (chosen default, consistent with hydration).
+- *Diastatic malt* ⚠️ 0.5% of total flour when toggled on.
 
-- 100g of 100%-hydration starter = 50g flour + 50g water.
-- Ignoring this is the most common beginner calculation mistake, and the app must not
-  make it.
+**Water to add** = (hydration % × total flour) − water in starter.
 
-## 3. Fermentation and temperature
+### Worked example (the standard beginner loaf)
 
-Fermentation speed depends primarily on dough temperature. The working baseline:
+- 570g added flour, 20% starter, 69% hydration, 2% salt
+- Starter: 0.20 × 570 = **114g** → brings 57g flour + 57g water
+- Total flour: 570 + 57 = 627g
+- Total water needed: 0.69 × 627 = 432.6g
+- **Water to add: 432.6 − 57 ≈ 376g** ✓ (matches PRD: "approximately 370–380g")
+- Salt ⚠️: 0.02 × 627 ≈ **12.5g** (would be 11.4g if based on added flour only)
+- Total dough weight ≈ 570 + 376 + 114 + 12.5 ≈ **1073g**
 
-- **Reference point:** bulk fermentation takes roughly 6–8 hours at 24°C (75°F) with a
-  20% starter ratio.
-- **Warmer is faster, cooler is slower.** As a rule of thumb, fermentation speed roughly
-  doubles for every ~8°C increase, within the normal home range (18–28°C).
-- Below ~18°C fermentation slows dramatically; above ~30°C the dough ferments very fast
-  and flavor/structure suffer. The app should warn outside 18–28°C rather than pretend
-  to predict precisely.
+## 2. Hydration presets & flour guidance
 
-## 4. Readiness signals (coaching, not math)
+- **Easy / beginner: 68%. Standard: 69%.** Custom lets the user pick their own.
+- Flour-mix guidance is **display-only** — the app never auto-adds water based on flour
+  type. The user raises hydration via Custom if they want to.
 
-Time and temperature estimate readiness; the dough itself confirms it. The app coaches
-users to check:
-
-- Dough has risen roughly 50–75% in volume (not necessarily doubled).
-- Surface is domed with some visible bubbles; edges pull slightly from the container.
-- Feels airy and jiggly, not dense.
-
-Estimates are **guidance**; sensory checks are the deciding signal. The app's language
-should always reflect that.
-
-## 5. Validation boundaries
-
-Inputs outside these ranges get a friendly warning or error (exact ranges to be
-confirmed with the PRD):
-
-| Input | Sensible range |
+| Flour mix | Suggested hydration |
 |---|---|
-| Hydration | 55%–100% (warn above 85% for beginners) |
-| Salt | 1.5%–2.5% of flour |
-| Starter | 5%–40% of flour |
-| Dough temperature | 18°C–30°C for predictions |
+| Mostly high-grade white / bread flour | 68–70% |
+| Mostly plain white flour | 67–69% |
+| 10–20% spelt | 68–70% |
+| 10–20% rye | 68–70% |
+| 10–15% pearl barley | 68–70% |
+| 10–30% wholemeal | 69–72% |
+
+## 3. Starter building
+
+A feeding ratio of **1:X:X** means 1 part existing starter : X parts flour : X parts
+water, by weight. So feeding 20g starter at 1:2:2 = 20g starter + 40g flour + 40g water
+= 100g total. Supported ratios: 1:1:1, 1:2:2, 1:3:3, custom.
+
+Given "starter on hand" and "starter needed", the app tells the user exactly what to
+**keep, discard, and feed** — and makes clear they don't need to use all their existing
+starter. Build slightly more than needed (so there's some left to maintain).
+
+Example (from the PRD): "You have 80g starter but only need 125g active starter. Keep
+20g, discard 60g, then feed 20g starter + 55g flour + 55g water = 130g total."
+
+### Time to peak, by room temperature
+
+| Room temperature | Starter peaks in |
+|---|---|
+| 15–18°C (Cold) | 8–12h |
+| 18–21°C (Cool) | 6–9h |
+| 21–24°C (Moderate) | 4–7h |
+| 24–26°C (Warm) | 3–5h |
+
+Always shown with: *"Use when doubled, bubbly, and domed, or just starting to flatten."*
+
+## 4. Bulk fermentation timing
+
+Same four temperature bands:
+
+| Room temperature | Bulk fermentation |
+|---|---|
+| 15–18°C (Cold) | 8–12h — overnight room-temp bulk can be appropriate if only 20–40% rise after several hours |
+| 18–21°C (Cool) | 6–8h |
+| 21–24°C (Moderate) | 4–6h |
+| 24–26°C (Warm) | 3–5h |
+
+## 5. Readiness — coaching language
+
+**Never tell users the dough must double.** Default guidance, verbatim:
+
+> "Shape when the dough has risen around 50–70%, looks puffy, has rounded edges, shows
+> bubbles around the sides, and jiggles slightly."
+
+Times are estimates; the dough's look and feel decide. All app copy reflects this —
+friendly, calm, practical, never falsely precise.
+
+## 6. Validation boundaries
+
+Errors block calculation; warnings coach but allow.
+
+| Input | Error outside | Warn outside |
+|---|---|---|
+| Added flour | 100–2000g | 300–1000g |
+| Hydration | 50–110% | 65–75% ("wetter dough is harder to handle") |
+| Starter % | 5–50% | 15–25% |
+| Salt % | 0–4% | 1.8–2.2% |
+
+These bounds are ⚠️ app-chosen defaults (the PRD doesn't specify them) — tune freely.

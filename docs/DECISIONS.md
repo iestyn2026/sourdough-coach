@@ -47,3 +47,26 @@ the first build milestone after the PRD review.
 **Why:** Avoids committing to tooling before requirements are seen, and keeps the setup
 step purely about documentation and structure, as requested.
 **Trade-off:** The placeholder `.ts` files aren't type-checked until then.
+
+## 6. PRD adopted; interim defaults for its gaps (2026-07-11)
+
+**Decision:** Iestyn's PRD is adopted as the scope source of truth (`PRD.md`), and
+`SOURDOUGH_RULES.md` now carries its exact numbers. Where the PRD is silent, interim
+defaults were chosen so work can proceed: salt = 2% of **total** flour (including starter
+flour, ~12.5g on the standard loaf), diastatic malt = 0.5% of total flour, validation
+ranges app-chosen. All are marked ⚠️ in the rules doc.
+**Why:** Blocking on small gaps would stall the milestone; visible, flagged defaults are
+easy to correct.
+**Trade-off:** If Iestyn intended salt as 2% of added flour (11.4g), the calculator's
+first output will be ~1g off until corrected. Verified against the PRD's own worked
+example: 570g flour / 20% starter / 69% hydration → 376g water ✓.
+
+## 7. Photo storage approach deferred to Loaf Log milestone (2026-07-11)
+
+**Decision:** The PRD wants up to five photos per loaf entry, stored locally. Photos as
+base64 strings would exhaust localStorage's ~5MB quota within a few loaves, so photos
+will likely need IndexedDB (still local, no backend) and/or client-side downscaling. The
+concrete choice is deferred until the Loaf Log milestone.
+**Why:** No point designing storage before the pages that produce the data exist.
+**Trade-off:** "localStorage only" in the PRD may become "browser-local storage only"
+(localStorage + IndexedDB) — same spirit, needs Iestyn's OK when we get there.
