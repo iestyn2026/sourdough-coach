@@ -19,7 +19,7 @@ const sameDay = (a: Date, b: Date) =>
 /** "2:30 pm today" / "7:30 am tomorrow" / "9:00 am Monday". */
 function formatWhen(at: Date, now: Date): string {
   const time = at
-    .toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
+    .toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true })
     .toLowerCase();
   const tomorrow = new Date(now);
   tomorrow.setDate(tomorrow.getDate() + 1);

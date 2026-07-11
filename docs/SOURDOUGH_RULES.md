@@ -138,9 +138,14 @@ when bulk starts (they happen during it — the timeline shows the overlap hones
 | Preheat (Dutch oven in) | 45 min |
 | Bake | ~45 min |
 
-⚠️ App-added nudges: starter % ≠ ~20% shifts fermentation speed (more = faster), noted
-on the plan; a "start now" plan that lands the bake between 10pm and 6am suggests a
-fridge proof instead.
+⚠️ App-added nudge: starter % ≠ ~20% shifts fermentation speed (more = faster), noted
+on the plan.
+
+**Practicality rules for "start now"** (Iestyn, 2026-07-11): the loaf should be in the
+fridge **before midnight** — if the fridge step lands past midnight, the plan
+recommends waiting and feeding the starter first thing tomorrow instead. Likewise a
+no-fridge plan whose bake lands between 10pm and 6am recommends starting tomorrow (or
+choosing a fridge proof). All times display as am/pm, never 24-hour.
 
 ## 5. Readiness — coaching language
 

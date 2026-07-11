@@ -114,15 +114,23 @@ describe('coaching notes', () => {
     expect(plan.warnings.some((w) => w.includes('early end'))).toBe(true);
   });
 
-  it('warns about a middle-of-the-night bake and suggests the fridge', () => {
+  it('recommends waiting until tomorrow when a no-fridge bake lands at night', () => {
     // Warm kitchen, no fridge, starting at noon: 4h + 1h + 4h + 15m + 1.5h + 45m → 23:30 bake.
     const noon = new Date('2026-07-11T12:00:00');
     const plan = planBake(input({ tempBand: 'warm', fridgeProof: false }), noon);
-    expect(plan.warnings.some((w) => w.includes('night'))).toBe(true);
+    expect(plan.warnings.some((w) => w.includes('first thing tomorrow'))).toBe(true);
   });
 
-  it('does not nag about night baking when the fridge makes timing flexible', () => {
-    const plan = planBake(input(), NOW); // bake lands 7:30am anyway
+  it('recommends waiting until tomorrow when the fridge step lands past midnight', () => {
+    // Moderate + fridge starting at 6pm: fridge-in at 5:45am — deep into the night.
+    const sixPm = new Date('2026-07-11T18:00:00');
+    const plan = planBake(input(), sixPm);
+    expect(plan.warnings.some((w) => w.includes('past midnight'))).toBe(true);
+    expect(plan.warnings.some((w) => w.includes('first thing tomorrow'))).toBe(true);
+  });
+
+  it('is happy when the loaf reaches the fridge before midnight', () => {
+    const plan = planBake(input(), NOW); // 9am start → fridge at 8:45pm same day
     expect(plan.warnings).toEqual([]);
   });
 });

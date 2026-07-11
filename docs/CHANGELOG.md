@@ -3,6 +3,13 @@
 Meaningful changes only — things that affect what the app does, how it's structured, or
 what a rule says. Newest first.
 
+## 2026-07-11 — Planner practicality rules (Iestyn's feedback)
+
+- All times now display as am/pm instead of 24-hour.
+- "Start now" plans check practicality: if the loaf wouldn't reach the fridge before
+  midnight (or a no-fridge bake lands overnight), the plan recommends waiting and
+  feeding the starter first thing tomorrow instead.
+
 ## 2026-07-11 — Milestone 3: Bake Planner
 
 - Bake Planner page: temperature band + bake goal (start now / tomorrow ~8am /

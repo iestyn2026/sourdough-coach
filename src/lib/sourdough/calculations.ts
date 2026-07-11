@@ -23,6 +23,8 @@ import {
   BULK_TARGET_GUIDANCE,
   DOUGH_FEEL_BANDS,
   FEED_RATIOS,
+  LATE_FRIDGE_WARNING,
+  NIGHT_BAKE_WARNING,
   OVERNIGHT_BULK_NOTE,
   PLAN_TIMES,
   STARTER_FLOUR_FEED_WORDS,
@@ -231,6 +233,10 @@ const roundUpTo5Minutes = (d: Date) =>
 
 const hoursLabel = (h: number) => (h === 1 ? 'about 1 hour' : `about ${h} hours`);
 
+/** "1:40 am" — 12-hour clock, used in warnings (the UI formats step times itself). */
+const clockLabel = (d: Date) =>
+  d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true }).toLowerCase();
+
 /**
  * A rough bake timeline (SOURDOUGH_RULES.md §4).
  *
@@ -338,13 +344,21 @@ export function planBake(input: PlannerInput, now: Date): BakePlan {
     warnings.push(STARTER_SPEED_NOTE(input.starterPercent));
   }
 
-  // With a fridge proof the bake time is flexible (8–12h range), so no night warning.
-  const bakeHour = steps[steps.length - 1].at.getHours();
-  if (input.goal === 'now' && !input.fridgeProof && (bakeHour >= 22 || bakeHour < 6)) {
-    warnings.push(
-      'This plan has you baking in the middle of the night. A fridge proof pushes the ' +
-        'bake to whenever suits you tomorrow — the dough only improves.',
-    );
+  // Practicality rules for "start now" (Iestyn, 2026-07-11 — SOURDOUGH_RULES.md §4):
+  // the loaf should reach the fridge before midnight; plans that keep you up through
+  // the night should recommend starting fresh tomorrow instead.
+  if (input.goal === 'now') {
+    if (input.fridgeProof) {
+      const fridgeAt = steps.find((s) => s.id === 'fridge-proof')!.at;
+      if (fridgeAt.getDate() !== start.getDate()) {
+        warnings.push(LATE_FRIDGE_WARNING(clockLabel(fridgeAt)));
+      }
+    } else {
+      const bakeHour = steps[steps.length - 1].at.getHours();
+      if (bakeHour >= 22 || bakeHour < 6) {
+        warnings.push(NIGHT_BAKE_WARNING);
+      }
+    }
   }
 
   return { steps, doneAt, warnings };

@@ -245,6 +245,21 @@ export const STARTER_SPEED_NOTE = (percent: number) =>
   `starter ferments faster, less ferments slower, so lean toward the ` +
   `${percent > 20 ? 'early' : 'late'} end of each range.`;
 
+/**
+ * Practicality rules for "start now" plans (Iestyn, 2026-07-11): the loaf should be
+ * in the fridge before midnight; a plan that keeps you up through the night should
+ * recommend starting fresh tomorrow instead.
+ */
+export const LATE_FRIDGE_WARNING = (timeLabel: string) =>
+  `This plan has the loaf going into the fridge at ${timeLabel} — past midnight. ` +
+  `More practical: wait, feed your starter first thing tomorrow, and start the bake ` +
+  `in the morning.`;
+
+export const NIGHT_BAKE_WARNING =
+  'This plan has you baking in the middle of the night. More practical: wait, feed ' +
+  'your starter first thing tomorrow and start then — or choose a fridge proof, ' +
+  'which shifts the bake to whenever suits you.';
+
 // ---- Validation boundaries (⚠️ app-chosen, SOURDOUGH_RULES.md §6) ----
 // Outside error range: calculation is blocked. Outside warn range: coached, not blocked.
 
