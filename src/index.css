@@ -387,6 +387,209 @@ details summary {
   align-items: center;
 }
 
+/* ---- Loaf Log ---- */
+
+input[type='text'],
+input[type='date'],
+textarea {
+  width: 100%;
+  font-size: 1rem;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: inherit;
+}
+
+input[type='text']:focus,
+input[type='date']:focus,
+textarea:focus {
+  outline: 2px solid var(--crust);
+  border-color: var(--crust);
+}
+
+.log-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 12px;
+}
+
+@media (max-width: 420px) {
+  .log-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rating-row {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 4px;
+}
+
+.rating-button {
+  padding: 10px 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.rating-button.selected {
+  background: var(--crust);
+  border-color: var(--crust-dark);
+  color: #fff;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+
+@media (max-width: 480px) {
+  .photo-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.photo-slot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.photo-slot img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+
+.photo-add {
+  width: 100%;
+  aspect-ratio: 1;
+  font-size: 1.4rem;
+  border: 2px dashed var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  cursor: pointer;
+}
+
+.photo-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(61, 50, 41, 0.75);
+  color: #fff;
+  font-size: 0.8rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.photo-label {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+.log-entries {
+  display: flex;
+  flex-direction: column;
+}
+
+.log-entry {
+  margin: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.log-entry:last-child {
+  border-bottom: none;
+}
+
+.log-entry summary {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.log-entry-date {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.log-entry-summary {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.log-entry-body {
+  padding-bottom: 14px;
+}
+
+.photo-strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin-bottom: 12px;
+}
+
+.photo-strip figure {
+  margin: 0;
+  flex: 0 0 140px;
+}
+
+.photo-strip img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+
+.photo-strip figcaption {
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  text-align: center;
+  margin-top: 2px;
+}
+
+.log-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+  margin: 0 0 12px;
+}
+
+.log-facts dt {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+.log-facts dd {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.log-notes {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.92rem;
+  margin: 0 0 12px;
+}
+
 /* ---- Troubleshooting FAQ ---- */
 
 .faq-list {

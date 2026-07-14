@@ -148,6 +148,38 @@ export interface BakePlan {
   warnings: string[];
 }
 
+// ---- Loaf Log (PRD page 7) ----
+
+/** The five photo moments the PRD asks for. */
+export type PhotoSlot = 'after-mix' | 'before-shaping' | 'shaped' | 'baked' | 'crumb';
+
+/**
+ * One logged loaf. Every field is optional (PRD: "optional fields") — this is a
+ * diary, not a form to fight with. Amounts and durations are free text on purpose:
+ * "376g", "about 6h", "overnight" are all valid diary entries, and no math is ever
+ * done on them.
+ */
+export interface LoafEntry {
+  id: string;
+  /** ISO timestamp of when the entry was saved. */
+  createdAt: string;
+  /** Bake date, yyyy-mm-dd. */
+  date: string;
+  flourMix: string;
+  water: string;
+  starter: string;
+  salt: string;
+  roomTemp: string;
+  bulkDuration: string;
+  fridgeDuration: string;
+  bakeTime: string;
+  notes: string;
+  /** 1–10, or null when unrated. */
+  rating: number | null;
+  /** Downscaled JPEG data URLs, keyed by photo moment. */
+  photos: Partial<Record<PhotoSlot, string>>;
+}
+
 /** errors block calculation; warnings coach but allow (SOURDOUGH_RULES.md §6). */
 export type IssueSeverity = 'error' | 'warning';
 

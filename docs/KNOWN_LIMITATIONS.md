@@ -51,8 +51,14 @@ every shortcut taken during a milestone gets a line here.
 - **Assumes 100%-hydration starter** in all calculations (per PRD).
 - **Data is per-browser, per-device** (no accounts, no sync, no backup). Clearing
   browser data deletes saved loaves (see `DECISIONS.md` #3).
-- **Photos will strain localStorage** (~5MB quota ≈ a few loaves' worth of photos).
-  Resolution deferred to the Loaf Log milestone (see `DECISIONS.md` #7).
+- **Photo capacity: roughly 6–10 fully-photographed loaves.** Photos are downscaled
+  to ≤1000px JPEGs (~80–150KB each) but localStorage's ~5MB quota is finite. The app
+  reports a full quota honestly; the fix at that point is deleting old entries or
+  migrating photos to IndexedDB (`DECISIONS.md` #12).
+- **Log entries can't be edited** — add and delete only. A typo means re-entering.
+- **The "Log this bake" handoff pre-fills the date only** — amounts don't flow from
+  the calculator into the log yet (needs the shared bake-session state,
+  `DECISIONS.md` #10/#12).
 - **Metric only** — grams and °C, as used throughout the PRD. No cups/ounces/°F.
 - **Flour-mix hydration guidance is display-only** — the app never auto-adjusts water
   for flour type (explicit PRD requirement, not an oversight).

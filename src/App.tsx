@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import BakePlanner from './pages/BakePlanner';
 import GuidedBake from './pages/GuidedBake';
 import LoafCalculator from './pages/LoafCalculator';
+import LoafLog from './pages/LoafLog';
 import StarterBuilder from './pages/StarterBuilder';
 import Troubleshooting from './pages/Troubleshooting';
 
@@ -16,6 +17,7 @@ const PAGES = [
   { hash: '#/planner', label: 'Planner', Component: BakePlanner },
   { hash: '#/bake', label: 'Bake', Component: GuidedBake },
   { hash: '#/help', label: 'Help', Component: Troubleshooting },
+  { hash: '#/log', label: 'Log', Component: LoafLog },
 ] as const;
 
 function useHashPage() {

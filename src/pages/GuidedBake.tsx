@@ -122,11 +122,24 @@ export default function GuidedBake() {
         <section className="card results">
           <h2>Loaf complete 🍞</h2>
           <p className="plan-sentence">
-            Well baked! Note down how it went while it&apos;s fresh in your mind — the
-            Loaf Log page is the next part of the app to be built, and it will pick up
-            from right here.
+            Well baked! Note down how it went while it&apos;s fresh in your mind — good
+            and bad, the log is where each loaf teaches the next one.
           </p>
-          <button type="button" className="big-button" onClick={startFresh}>
+          <button
+            type="button"
+            className="big-button"
+            onClick={() => {
+              window.location.hash = '#/log';
+            }}
+          >
+            Log this bake
+          </button>
+          <button
+            type="button"
+            className="ghost-button"
+            style={{ width: '100%', marginTop: 8 }}
+            onClick={startFresh}
+          >
             Start a new bake
           </button>
         </section>

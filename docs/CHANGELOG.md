@@ -3,6 +3,18 @@
 Meaningful changes only — things that affect what the app does, how it's structured, or
 what a rule says. Newest first.
 
+## 2026-07-14 — Milestone 6: Loaf Log with photos
+
+- Loaf Log page: diary entries with the PRD's optional fields (date, flour mix,
+  water, starter, salt, room temp, bulk/fridge/bake times, notes, 1–10 rating) and
+  the five photo slots (after mix, before shaping, shaped, baked, crumb). Photos are
+  downscaled client-side to ≤1000px JPEGs so they fit localStorage
+  (`DECISIONS.md` #12); quota overflow shows a friendly error instead of losing the
+  entry. Entries list newest-first with expandable details and delete.
+- Guided Bake's completion card now has the PRD's "Log this bake" button — it opens
+  the log with the bake's date pre-filled.
+- 6 new tests (85 total): log storage round-trips, quota failure, junk resilience.
+
 ## 2026-07-11 — Milestone 5: Troubleshooting / Common Questions
 
 - Help page: all 25 PRD questions as expandable Q&A cards in four categories

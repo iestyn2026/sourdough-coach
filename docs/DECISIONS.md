@@ -151,4 +151,27 @@ do now.
 
 **Decision — "Log this bake" handoff deferred.** The PRD wants the final step to
 pre-fill the Loaf Log, which doesn't exist yet. The completion card says so; the
-handoff gets built with the Loaf Log milestone.
+handoff gets built with the Loaf Log milestone. *(Superseded by #12 — built.)*
+
+## 12. Milestone 6 build choices (2026-07-11)
+
+**Decision — photos live in localStorage as downscaled JPEGs, not IndexedDB.**
+Photos are shrunk client-side (max 1000px, 72% JPEG quality → roughly 80–150KB each)
+and stored as data URLs inside the entry. Keeps the PRD's "localStorage only" promise
+literally and the storage story to one mechanism.
+**Trade-off:** ~5MB quota means roughly 6–10 fully-photographed loaves. When that
+hurts, migrate photos to IndexedDB (still local, no backend). Saving reports quota
+failure honestly instead of losing the entry silently.
+
+**Decision — diary fields are free text.** Water, starter, salt, durations, and
+temperature are strings ("376g", "overnight", "about 22°C") — no validation, no math.
+A log is a diary; fighting a form kills the habit.
+**Trade-off:** No statistics over past bakes without parsing. Fine until wanted.
+
+**Decision — no entry editing, only add and delete.** Keeps the first version small.
+**Trade-off:** A typo means re-entering the loaf; acceptable for a prototype.
+
+**Decision — the Guided Bake handoff pre-fills the date only.** The bake session
+tracks step completion, not amounts, so the date (from when the bake started) is the
+only "known data" to carry over. Deeper pre-fill (calculator amounts → log) needs the
+shared bake-session state deferred in #10.
