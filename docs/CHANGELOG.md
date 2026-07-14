@@ -3,6 +3,16 @@
 Meaningful changes only — things that affect what the app does, how it's structured, or
 what a rule says. Newest first.
 
+## 2026-07-14 — Home page: the MVP is complete 🎉
+
+- Home page: the PRD's intro line plus a card for every feature (Build Starter added
+  beyond the PRD's five — `DECISIONS.md` #14). Home is the landing page; the app
+  title links back to it. Live hints: "Resume — step N of 15" mid-bake, loaf count
+  on the log card.
+- All seven PRD pages now exist. Every acceptance criterion from the PRD is met:
+  flour amounts ✓ flour mix ✓ water/starter/salt/malt outputs ✓ starter building ✓
+  temperature-based timing ✓ checklist ✓ local loaf log ✓.
+
 ## 2026-07-14 — Two photo slots (Iestyn's feedback)
 
 - Loaf Log photos simplified from five slots to two: before bake and after bake

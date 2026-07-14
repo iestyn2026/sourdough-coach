@@ -47,6 +47,11 @@ body {
   font-size: 1.7rem;
 }
 
+.app-header h1 a {
+  color: inherit;
+  text-decoration: none;
+}
+
 .app-header p,
 .app-footer p {
   margin: 4px 0 0;
@@ -385,6 +390,59 @@ details summary {
   min-height: 44px;
   display: flex;
   align-items: center;
+}
+
+/* ---- Home ---- */
+
+.home-intro {
+  text-align: center;
+  color: var(--ink-soft);
+  margin: 16px 8px 0;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+@media (max-width: 480px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.home-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink);
+  text-decoration: none;
+  min-height: 72px;
+}
+
+.home-card:active {
+  border-color: var(--crust);
+}
+
+.home-card-icon {
+  font-size: 1.6rem;
+}
+
+.home-card strong {
+  display: block;
+  font-size: 1rem;
+}
+
+.home-card .sub {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
 }
 
 /* ---- Loaf Log ---- */

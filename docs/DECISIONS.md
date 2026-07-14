@@ -185,3 +185,16 @@ replacing the PRD's original five slots (revises #12's capacity math: now roughl
 **Trade-off:** No dedicated crumb shot — the after-bake slot covers whichever view
 matters most. Old entries with five-slot photos would simply not display them (none
 existed at the time of change).
+
+## 14. Home page choices (2026-07-14)
+
+**Decision — Home is the landing page, reached via the app title, not a nav tab.**
+Empty or unknown hashes land on Home; tapping "🍞 Sourdough Coach" returns there.
+Seven nav tabs would crowd a phone screen; six features + a title-link keeps it clean.
+
+**Decision — a Build Starter card was added beyond the PRD's five.** The PRD's home
+list omits the Starter Builder even though it's a page; every page deserves a door.
+
+**Decision — two live status hints.** The guided-bake card shows "Resume — step N of
+15" mid-bake, and the log card shows the loaf count. Both read existing storage; no
+new state.

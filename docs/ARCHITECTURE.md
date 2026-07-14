@@ -11,10 +11,11 @@
 
 > **Status:** toolchain live as of milestone 1 (2026-07-11). Run the dev server with
 > `scripts/dev.sh` (Node lives in `~/.local/node`, see `DECISIONS.md` #8); tests with
-> `scripts/dev.sh`'s PATH plus `npm test`. Pages built so far: Loaf Calculator,
-> Starter Builder, Bake Planner, Guided Bake, Troubleshooting, Loaf Log (hash
-> navigation — `DECISIONS.md` #9). Storage layer: `src/storage/` holds guided-bake
-> progress, the loaf log, and the photo downscaler. Remaining: the Home page.
+> `scripts/dev.sh`'s PATH plus `npm test`. **All seven PRD pages are built** (MVP
+> complete 2026-07-14): Home (landing page), Loaf Calculator, Starter Builder, Bake
+> Planner, Guided Bake, Troubleshooting, Loaf Log — hash navigation, `DECISIONS.md`
+> #9/#14. Storage layer: `src/storage/` holds guided-bake progress, the loaf log,
+> and the photo downscaler.
 
 ## Layers
 
