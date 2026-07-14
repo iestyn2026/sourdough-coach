@@ -6,11 +6,8 @@ import { addEntry, deleteEntry, loadEntries } from '../storage/loafLog';
 import { downscalePhoto } from '../storage/photos';
 
 const PHOTO_SLOTS: ReadonlyArray<{ id: PhotoSlot; label: string }> = [
-  { id: 'after-mix', label: 'After mix' },
-  { id: 'before-shaping', label: 'Before shaping' },
-  { id: 'shaped', label: 'Shaped' },
-  { id: 'baked', label: 'Baked loaf' },
-  { id: 'crumb', label: 'Crumb' },
+  { id: 'before-bake', label: 'Before bake' },
+  { id: 'after-bake', label: 'After bake' },
 ];
 
 const TEXT_FIELDS: ReadonlyArray<{ id: keyof FormText; label: string; placeholder: string }> = [

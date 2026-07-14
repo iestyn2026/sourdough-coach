@@ -57,7 +57,8 @@ Beginner sourdough bakers. Real pain points this app addresses:
    starter, dough, baking, and ingredients questions listed in the source PRD.
 7. **Loaf Log** — save entries with optional fields: date, flour mix, water, starter,
    salt, room temp, bulk duration, fridge duration, bake time, notes, rating 1–10, and
-   photos (after mix, before shaping, shaped, baked loaf, crumb).
+   photos: two slots, before bake and after bake (simplified from the original five —
+   Iestyn, 2026-07-14).
 
 All calculation rules and timing tables are specified in `SOURDOUGH_RULES.md`.
 

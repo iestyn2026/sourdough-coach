@@ -150,8 +150,8 @@ export interface BakePlan {
 
 // ---- Loaf Log (PRD page 7) ----
 
-/** The five photo moments the PRD asks for. */
-export type PhotoSlot = 'after-mix' | 'before-shaping' | 'shaped' | 'baked' | 'crumb';
+/** Two photo moments (simplified from the PRD's five — Iestyn, 2026-07-14). */
+export type PhotoSlot = 'before-bake' | 'after-bake';
 
 /**
  * One logged loaf. Every field is optional (PRD: "optional fields") — this is a

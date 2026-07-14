@@ -51,10 +51,10 @@ every shortcut taken during a milestone gets a line here.
 - **Assumes 100%-hydration starter** in all calculations (per PRD).
 - **Data is per-browser, per-device** (no accounts, no sync, no backup). Clearing
   browser data deletes saved loaves (see `DECISIONS.md` #3).
-- **Photo capacity: roughly 6–10 fully-photographed loaves.** Photos are downscaled
-  to ≤1000px JPEGs (~80–150KB each) but localStorage's ~5MB quota is finite. The app
+- **Photo capacity: roughly 15–25 photographed loaves** (two photos each, downscaled
+  to ≤1000px JPEGs, ~80–150KB per photo, inside localStorage's ~5MB quota). The app
   reports a full quota honestly; the fix at that point is deleting old entries or
-  migrating photos to IndexedDB (`DECISIONS.md` #12).
+  migrating photos to IndexedDB (`DECISIONS.md` #12–13).
 - **Log entries can't be edited** — add and delete only. A typo means re-entering.
 - **The "Log this bake" handoff pre-fills the date only** — amounts don't flow from
   the calculator into the log yet (needs the shared bake-session state,

@@ -33,7 +33,7 @@ const entry = (overrides: Partial<LoafEntry> = {}): LoafEntry => ({
   bakeTime: '45 min',
   notes: 'Best crumb yet.',
   rating: 8,
-  photos: { crumb: 'data:image/jpeg;base64,abc' },
+  photos: { 'after-bake': 'data:image/jpeg;base64,abc' },
   ...overrides,
 });
 

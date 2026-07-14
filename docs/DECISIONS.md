@@ -175,3 +175,13 @@ A log is a diary; fighting a form kills the habit.
 tracks step completion, not amounts, so the date (from when the bake started) is the
 only "known data" to carry over. Deeper pre-fill (calculator amounts → log) needs the
 shared bake-session state deferred in #10.
+
+## 13. Two photo slots instead of five (2026-07-14)
+
+**Decision (Iestyn):** The log keeps two photos — before bake and after bake —
+replacing the PRD's original five slots (revises #12's capacity math: now roughly
+15–25 photographed loaves fit the quota).
+**Why:** Simpler to use; five prompts per loaf was friction nobody asked for.
+**Trade-off:** No dedicated crumb shot — the after-bake slot covers whichever view
+matters most. Old entries with five-slot photos would simply not display them (none
+existed at the time of change).

@@ -3,6 +3,11 @@
 Meaningful changes only — things that affect what the app does, how it's structured, or
 what a rule says. Newest first.
 
+## 2026-07-14 — Two photo slots (Iestyn's feedback)
+
+- Loaf Log photos simplified from five slots to two: before bake and after bake
+  (`DECISIONS.md` #13). Capacity rises to roughly 15–25 photographed loaves.
+
 ## 2026-07-14 — Milestone 6: Loaf Log with photos
 
 - Loaf Log page: diary entries with the PRD's optional fields (date, flour mix,
