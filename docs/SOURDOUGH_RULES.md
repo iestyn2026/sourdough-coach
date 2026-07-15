@@ -23,7 +23,7 @@ the starter.** Never compute water as hydration % × added flour.
 - *Total flour* = added flour + starter flour.
 - *Starter %* is applied to **added flour** (per the PRD example: 20% × 570g = 114g).
 - *Hydration* = total water ÷ total flour.
-- *Salt %* ⚠️ applied to **total flour** (chosen default, consistent with hydration).
+- *Salt %* applied to **total flour** — confirmed by Iestyn, 2026-07-14.
 - *Diastatic malt* ⚠️ 0.5% of total flour when toggled on.
 
 **Water to add** = (hydration % × total flour) − water in starter.
@@ -35,7 +35,7 @@ the starter.** Never compute water as hydration % × added flour.
 - Total flour: 570 + 57 = 627g
 - Total water needed: 0.69 × 627 = 432.6g
 - **Water to add: 432.6 − 57 ≈ 376g** ✓ (matches PRD: "approximately 370–380g")
-- Salt ⚠️: 0.02 × 627 ≈ **12.5g** (would be 11.4g if based on added flour only)
+- Salt: 0.02 × 627 ≈ **12.5g**
 - Total dough weight ≈ 570 + 376 + 114 + 12.5 ≈ **1073g**
 
 ## 2. Hydration presets & flour guidance

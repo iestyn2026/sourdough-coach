@@ -60,6 +60,7 @@ easy to correct.
 **Trade-off:** If Iestyn intended salt as 2% of added flour (11.4g), the calculator's
 first output will be ~1g off until corrected. Verified against the PRD's own worked
 example: 570g flour / 20% starter / 69% hydration → 376g water ✓.
+*(Salt basis confirmed correct by Iestyn, 2026-07-14 — no longer interim.)*
 
 ## 7. Photo storage approach deferred to Loaf Log milestone (2026-07-11)
 

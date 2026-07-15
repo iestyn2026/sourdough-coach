@@ -101,9 +101,8 @@ The prototype is successful when Iestyn can:
 Defaults chosen so work can proceed; each needs Iestyn's confirmation (tracked in
 `DECISIONS.md` #6):
 
-1. **Salt basis** — 2% of *which* flour? Chosen default: total flour including starter
-   flour (627g in the standard loaf → ~12.5g), consistent with how hydration is
-   calculated. Alternative: added flour only (570g → 11.4g).
+1. **Salt basis** — ✅ resolved (Iestyn, 2026-07-14): 2% of total flour including
+   starter flour (627g in the standard loaf → ~12.5g), as the app already calculated.
 2. **Diastatic malt amount** — not specified. Chosen default: 0.5% of total flour.
 3. **Inclusion quantities** — olives/seeds/rosemary amounts not specified. Deferred to
    the Loaf Calculator milestone.

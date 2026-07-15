@@ -430,10 +430,6 @@ details summary {
   border-color: var(--crust);
 }
 
-.home-card-icon {
-  font-size: 1.6rem;
-}
-
 .home-card strong {
   display: block;
   font-size: 1rem;

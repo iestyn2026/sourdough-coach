@@ -3,6 +3,13 @@
 Meaningful changes only — things that affect what the app does, how it's structured, or
 what a rule says. Newest first.
 
+## 2026-07-14 — Salt confirmed; simpler homepage (Iestyn's feedback)
+
+- Salt basis confirmed: 2% of total flour including starter flour (~12.5g on the
+  standard loaf). No code change — the app already calculated it this way; the ⚠️
+  interim-default markers are gone from the docs.
+- Homepage cards lost their emojis — plain text titles, simpler look.
+
 ## 2026-07-14 — Home page: the MVP is complete 🎉
 
 - Home page: the PRD's intro line plus a card for every feature (Build Starter added

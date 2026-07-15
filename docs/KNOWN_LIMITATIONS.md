@@ -40,9 +40,9 @@ every shortcut taken during a milestone gets a line here.
 
 ## From setup (still true)
 
-- **Some rule numbers are interim defaults, not from the PRD** — salt basis (total vs
-  added flour), diastatic malt %, and validation ranges. Marked ⚠️ in
-  `SOURDOUGH_RULES.md`, awaiting Iestyn's confirmation.
+- **Some rule numbers are interim defaults, not from the PRD** — diastatic malt % and
+  validation ranges. Marked ⚠️ in `SOURDOUGH_RULES.md`, awaiting Iestyn's confirmation.
+  (Salt basis was confirmed 2026-07-14: 2% of total flour.)
 - **Fermentation timing uses four coarse temperature bands** (15–18 / 18–21 / 21–24 /
   24–26°C), not a continuous model, and ignores flour type, starter vigor, and dough vs
   room temperature. Deliberate: estimates are guidance, sensory checks decide (PRD

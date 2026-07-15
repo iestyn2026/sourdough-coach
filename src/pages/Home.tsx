@@ -15,21 +15,19 @@ export default function Home() {
   const loafCount = loadEntries().length;
 
   const cards = [
-    { hash: '#/calculator', icon: '🧮', title: 'Calculate a loaf', sub: 'Flour, water, starter, and salt amounts' },
-    { hash: '#/starter', icon: '🫙', title: 'Build starter', sub: 'What to keep, discard, and feed' },
-    { hash: '#/planner', icon: '🗓️', title: 'Plan a bake', sub: 'A timeline that fits your day' },
+    { hash: '#/calculator', title: 'Calculate a loaf', sub: 'Flour, water, starter, and salt amounts' },
+    { hash: '#/starter', title: 'Build starter', sub: 'What to keep, discard, and feed' },
+    { hash: '#/planner', title: 'Plan a bake', sub: 'A timeline that fits your day' },
     {
       hash: '#/bake',
-      icon: '✅',
       title: 'Follow guided bake',
       sub: bakeUnderway
         ? `Resume — step ${progress.completedIds.length + 1} of ${GUIDED_BAKE_STEPS.length}`
         : 'Step-by-step bake mode',
     },
-    { hash: '#/help', icon: '❓', title: 'Troubleshooting', sub: 'Quick answers to common problems' },
+    { hash: '#/help', title: 'Troubleshooting', sub: 'Quick answers to common problems' },
     {
       hash: '#/log',
-      icon: '📓',
       title: 'Loaf log',
       sub: loafCount > 0
         ? `${loafCount} ${loafCount === 1 ? 'loaf' : 'loaves'} logged`
@@ -45,7 +43,6 @@ export default function Home() {
       <div className="home-grid">
         {cards.map((card) => (
           <a key={card.hash} href={card.hash} className="home-card">
-            <span className="home-card-icon" aria-hidden>{card.icon}</span>
             <span>
               <strong>{card.title}</strong>
               <span className="sub">{card.sub}</span>
