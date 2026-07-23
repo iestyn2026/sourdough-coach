@@ -18,19 +18,32 @@ const INCLUSIONS: readonly Inclusion[] = ['olives', 'seeds', 'rosemary'];
 /** Parse a text field into a number; empty or junk becomes NaN so validation catches it. */
 const num = (s: string) => (s.trim() === '' ? Number.NaN : Number(s));
 
+/** Flour mix as raw text per flour type, so a field can be fully cleared while typing. */
+type FlourMixText = Partial<Record<(typeof FLOUR_TYPES)[number], string>>;
+
 /**
  * Loaf Calculator (PRD page 2). All math lives in src/lib/sourdough/ — this component
  * only collects input and displays results.
  */
 export default function LoafCalculator() {
   const [flour, setFlour] = useState(String(DEFAULT_ADDED_FLOUR_GRAMS));
-  const [mix, setMix] = useState<FlourMix>({ 'high-grade-white': 100 });
+  const [mixText, setMixText] = useState<FlourMixText>({ 'high-grade-white': '100' });
   const [mode, setMode] = useState<HydrationMode>('standard');
   const [customHydration, setCustomHydration] = useState('72');
   const [starterPct, setStarterPct] = useState(String(DEFAULT_STARTER_PERCENT));
   const [saltPct, setSaltPct] = useState(String(DEFAULT_SALT_PERCENT));
   const [malt, setMalt] = useState(false);
   const [inclusions, setInclusions] = useState<Inclusion[]>([]);
+
+  // Blank fields count as 0% for the math — same convention as every other field here,
+  // where an empty box means "nothing entered yet", not a literal zero to fight with.
+  const mix: FlourMix = useMemo(() => {
+    const result: FlourMix = {};
+    for (const flourType of FLOUR_TYPES) {
+      result[flourType] = num(mixText[flourType] ?? '') || 0;
+    }
+    return result;
+  }, [mixText]);
 
   const input = useMemo(
     () => ({
@@ -53,7 +66,7 @@ export default function LoafCalculator() {
   );
 
   const setMixPercent = (flourType: (typeof FLOUR_TYPES)[number], value: string) =>
-    setMix((prev) => ({ ...prev, [flourType]: value.trim() === '' ? 0 : Number(value) }));
+    setMixText((prev) => ({ ...prev, [flourType]: value }));
 
   const toggleInclusion = (inclusion: Inclusion) =>
     setInclusions((prev) =>
@@ -98,7 +111,8 @@ export default function LoafCalculator() {
                   id={`mix-${flourType}`}
                   type="number"
                   inputMode="numeric"
-                  value={mix[flourType] ?? 0}
+                  placeholder="0"
+                  value={mixText[flourType] ?? ''}
                   onChange={(e) => setMixPercent(flourType, e.target.value)}
                 />
                 <span className="unit">%</span>

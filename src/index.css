@@ -276,7 +276,7 @@ input[type='number']:focus {
 
 .mix-grid {
   display: grid;
-  grid-template-columns: 1fr 92px;
+  grid-template-columns: 1fr 112px;
   gap: 8px 12px;
   align-items: center;
 }
